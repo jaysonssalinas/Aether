@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\app\\\\globals.css\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\globals.css\" -Force)",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\app\\\\globals.css\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\globals.css\" -Force)",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\app\\\\globals.css\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\globals.css\" -Force)",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\app\\\\api\\\\contact\")",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\components\\\\AetherLogo.tsx\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\components\\\\AetherLogo.tsx\")",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\components\\\\Button.tsx\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\components\\\\Button.tsx\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\services\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\portfolio\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\pricing\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\contact\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\digital\\\\app\\\\api\\\\contact\")",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\components\\\\AetherLogo.tsx\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\components\\\\AetherLogo.tsx\")",
+      "PowerShell(Copy-Item \"C:\\\\Projects\\\\Aether\\\\apps\\\\aether\\\\components\\\\Button.tsx\" \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\components\\\\Button.tsx\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\galleries\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\services\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\pricing\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\contact\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\celebrations\\\\app\\\\api\\\\contact\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\login\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\dashboard\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\pricing\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\customers\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\reports\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\api\\\\auth\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\api\\\\pricing\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\app\\\\api\\\\customers\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\lib\")",
+      "Bash(git -C \"C:\\\\Projects\\\\Aether\" status)",
+      "Bash(git -C \"C:\\\\Projects\\\\Aether\" remote -v)"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "aether",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev:aether": "pnpm --filter @aether/web dev",
+    "dev:digital": "pnpm --filter @aether/digital dev",
+    "dev:celebrations": "pnpm --filter @aether/celebrations dev",
+    "dev:admin": "pnpm --filter @aether/admin dev",
+    "build": "pnpm --recursive build",
+    "lint": "pnpm --recursive lint"
+  }
+}

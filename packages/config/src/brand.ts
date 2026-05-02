@@ -1,0 +1,31 @@
+export const brand = {
+  colors: {
+    pink: '#ff1493',
+    magenta: '#ff4081',
+    purple: '#6a4c93',
+    dark: '#0a0a0a',
+    darkCard: '#111111',
+    darkBorder: '#1e1e1e',
+    light: '#f5f5f0',
+    lightMuted: '#d4d4cf',
+    gold: '#b8860b',
+    cyan: '#00bcd4',
+    textPrimary: '#f5f5f0',
+    textSecondary: '#999999',
+    textDark: '#1a1a1a',
+  },
+  gradient: 'linear-gradient(135deg, #ff1493 0%, #ff4081 40%, #6a4c93 100%)',
+  gradientText: 'linear-gradient(135deg, #ff1493, #6a4c93)',
+  fonts: {
+    display: "'Playfair Display', Georgia, serif",
+    body: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    mono: "'Courier New', Monaco, monospace",
+  },
+  tagline: 'The Essence of Possibility',
+  descriptor: 'Digital • Celebrations',
+  contact: {
+    email: 'contact@aether.com.ph',
+    phone: '09669873475',
+    address: 'Dasmarinas, Cavite, Philippines',
+  },
+} as const;
