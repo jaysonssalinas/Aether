@@ -11,8 +11,8 @@ interface NavBarProps {
 
 const defaultLinks = [
   { label: 'About', href: '/about' },
-  { label: 'Digital', href: 'http://localhost:3001' },
-  { label: 'Celebrations', href: 'http://localhost:3002' },
+  { label: 'Digital', href: process.env.NEXT_PUBLIC_DIGITAL_URL || 'http://localhost:3001' },
+  { label: 'Celebrations', href: process.env.NEXT_PUBLIC_CELEBRATIONS_URL || 'http://localhost:3002' },
   { label: 'Contact', href: '/contact' },
 ];
 
