@@ -63,11 +63,36 @@ Content audit must confirm that all unique content from these apps is present in
 | Access | VPN only — never port-forwarded directly |
 | Cost | Free (hardware already owned) |
 
-**CRM modules:**
-- Customers / Leads
-- Pricing management
-- Reports / Analytics
-- Project tracking
+**CRM modules (MVP):**
+
+- Customers — name, contact info, business name, location
+- Product Catalog — predefined service types, easy to extend
+- Subscriptions/Deployments — links customers to products with fee + status
+- MRR Dashboard — live sum of all active subscriptions
+- Reports — per-product revenue, customer list exports
+
+**Product types (initial catalog):**
+
+| Type                    | Division     | Billing                      |
+|-------------------------|--------------|------------------------------|
+| Website                 | Digital      | Monthly maintenance retainer |
+| Inventory System        | Digital      | Monthly license/support      |
+| Piso Wifi               | Digital      | Monthly support/maintenance  |
+| SEO / Digital Marketing | Digital      | Monthly retainer             |
+| Event / Wedding         | Celebrations | Per-event                    |
+| Souvenirs               | Celebrations | Per-order                    |
+
+New product types are added as rows — no schema changes needed.
+
+**Data model is MVP-first, scale-ready:**
+
+```text
+customers       → core customer record
+products        → service/product catalog (type, name, base price)
+subscriptions   → customer + product + monthly_fee + start_date + status
+                   (future: attach invoices, tickets, renewal reminders here)
+admin_users     → staff accounts (future: role-based permissions)
+```
 
 **Database:** PostgreSQL running on the same Ubuntu machine. Schema at `apps/admin/database/schema.sql`. No cloud database — all data stays local.
 
