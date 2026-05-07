@@ -46,6 +46,8 @@ INSERT INTO products (id, name, description, starting_price, max_price, frequenc
   ('printing-system-maintenance', 'Printing System Maintenance',      'Monthly support',      1500,  2000,  'monthly',  'digital',       'Software Systems', FALSE),
   ('inventory-system-license',    'Inventory System License',         'Inventory software',   5000,  8000,  'one-time', 'digital',       'Software Systems', TRUE),
   ('inventory-system-maintenance','Inventory System Maintenance',     'Monthly support',      1500,  2500,  'monthly',  'digital',       'Software Systems', FALSE),
+  ('piso-wifi-license',           'Piso Wifi System License',         'Coin-op WiFi hotspot',  3500, 6000,  'one-time', 'digital',       'Software Systems', TRUE),
+  ('piso-wifi-maintenance',       'Piso Wifi Maintenance',            'Monthly remote support', 800, 1500,  'monthly',  'digital',       'Software Systems', FALSE),
   ('domain-hosting',              'Domain + Hosting Management',      'End-to-end hosting',   1200,  NULL,  'monthly',  'digital',       'Web Services',     FALSE),
   ('seo-online-presence',         'SEO + Online Presence',            'Get found on Google',  3000,  NULL,  'monthly',  'digital',       'Web Services',     FALSE),
   ('event-planning',              'Event Planning',                   'Full coordination',    NULL,  NULL,  'custom',   'celebrations',  'Events',           TRUE),
