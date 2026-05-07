@@ -35,7 +35,8 @@
       "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Projects\\\\Aether\\\\apps\\\\admin\\\\lib\")",
       "Bash(git -C \"C:\\\\Projects\\\\Aether\" status)",
       "Bash(git -C \"C:\\\\Projects\\\\Aether\" remote -v)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
