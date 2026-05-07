@@ -1,59 +1,37 @@
 # Aether — Deployment Guide
 
-## Hosting: Netlify (You already have an account — use it)
+## Architecture
 
-Each app deploys as a separate Netlify site. Free tier supports unlimited sites.
+| Part                               | Where               | How                                    |
+|------------------------------------|---------------------|----------------------------------------|
+| Customer website (`aether.com.ph`) | Netlify (free)      | `apps/aether`                          |
+| CRM / Admin                        | Local Ubuntu server | `apps/admin` — accessed via Tailscale  |
 
 ---
 
-## Step 1: Install the Netlify CLI
+## Website — Netlify Deployment
+
+### First-time setup
 
 ```bash
 npm install -g netlify-cli
 netlify login
 ```
 
----
-
-## Step 2: Deploy each app
-
-Run these from the **root** of the monorepo:
+### Deploy apps/aether
 
 ```bash
-# Deploy aether hub → aether.com.ph
 cd C:\Projects\Aether\apps\aether
-netlify init        # first time: link to a new Netlify site
-netlify deploy --prod
-
-# Deploy digital → digital.aether.com.ph
-cd C:\Projects\Aether\apps\digital
-netlify init
-netlify deploy --prod
-
-# Deploy celebrations → celebrations.aether.com.ph
-cd C:\Projects\Aether\apps\celebrations
-netlify init
-netlify deploy --prod
-
-# Deploy admin → admin.aether.com.ph
-cd C:\Projects\Aether\apps\admin
-netlify init
+netlify init        # first time: create new site
 netlify deploy --prod
 ```
 
-Each `netlify init` will ask:
+When prompted:
 
-- **Create a new site** → Yes
-- **Build command** → `next build`
-- **Publish directory** → `.next`
+- **Build command:** `cd ../.. && pnpm --filter @aether/web build`
+- **Publish directory:** `.next`
 
----
-
-## Step 3: Add a netlify.toml to each app
-
-Create this file inside each app folder so Netlify knows how to build it:
-
-**`apps/aether/netlify.toml`** (same pattern for all 4 apps):
+### netlify.toml (add to apps/aether/)
 
 ```toml
 [build]
@@ -64,82 +42,83 @@ Create this file inside each app folder so Netlify knows how to build it:
   package = "@netlify/plugin-nextjs"
 ```
 
-Install the Next.js plugin:
+Install the plugin:
 
 ```bash
 pnpm add -D @netlify/plugin-nextjs --filter @aether/web
-pnpm add -D @netlify/plugin-nextjs --filter @aether/digital
-pnpm add -D @netlify/plugin-nextjs --filter @aether/celebrations
-pnpm add -D @netlify/plugin-nextjs --filter @aether/admin
 ```
 
----
+### Connect the domain
 
-## Step 4: Set environment variables
+In Netlify dashboard → Site → Domain Management → Add domain: `aether.com.ph`
 
-For the **admin** site in Netlify dashboard:
-
-- Go to Site → Site Configuration → Environment Variables
-- Add all variables from `.env.example`
-- Use your Supabase connection string for `DB_*` variables
+Update your domain registrar DNS to point to Netlify. SSL is automatic.
 
 ---
 
-## Step 5: Connect custom domains
+## CRM — Ubuntu Server Setup
 
-In Netlify dashboard for each site:
+### 1. Install PostgreSQL
 
-- Go to Site → Domain Management → Add a domain
+```bash
+sudo apt update && sudo apt install postgresql postgresql-contrib
+sudo -u postgres createdb aether_admin
+```
 
-| App | Domain |
-|-----|--------|
-| Aether Hub | `aether.com.ph` |
-| Digital | `digital.aether.com.ph` |
-| Celebrations | `celebrations.aether.com.ph` |
-| Admin | `admin.aether.com.ph` |
+Run the schema:
 
-Update DNS at your domain registrar to point to Netlify. SSL is automatic.
+```bash
+sudo -u postgres psql aether_admin < /path/to/apps/admin/database/schema.sql
+```
+
+### 2. Configure environment
+
+```bash
+cp .env.example apps/admin/.env.local
+# Edit .env.local: set DB_PASSWORD and JWT_SECRET
+```
+
+### 3. Run as a persistent service (PM2)
+
+```bash
+npm install -g pm2
+cd /path/to/apps/admin
+pm2 start "pnpm dev" --name aether-admin
+pm2 startup   # auto-start on reboot
+pm2 save
+```
+
+Admin accessible at `http://localhost:3003`
+
+### 4. Remote access via Tailscale
+
+```bash
+# On Ubuntu server
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+
+# On your device (Windows/Mac/iOS/Android)
+# Download Tailscale → sign in with same account
+```
+
+Access CRM from anywhere at: `http://<tailscale-ip>:3003`
+
+### 5. Future: employee access via Omada OpenVPN
+
+When hiring staff, configure OpenVPN on the TP-Link ER605 via OC200 controller.
+Issue VPN profiles to employees. No monthly cost — uses hardware already owned.
 
 ---
 
-## Step 6: Supabase (Free hosted PostgreSQL)
+## Pre-Launch Checklist
 
-1. Go to supabase.com → New Project
-2. Name it `aether-admin`, choose a strong password
-3. Once created: Settings → Database → Connection string (use the "URI" format)
-4. In Netlify admin site env vars, set:
-   ```
-   DB_HOST=db.xxxx.supabase.co
-   DB_PORT=5432
-   DB_NAME=postgres
-   DB_USER=postgres
-   DB_PASSWORD=your_supabase_password
-   ```
-5. In Supabase SQL Editor, paste and run:
-   `C:\Projects\Aether\apps\admin\database\schema.sql`
-
----
-
-## Step 7: Replace localhost URLs before going live
-
-Search and replace all `localhost:300x` with production domains in:
-- `apps/aether/components/NavBar.tsx`
-- `apps/aether/components/Footer.tsx`
-- `apps/aether/app/page.tsx`
-- `apps/digital/components/Footer.tsx`
-- `apps/celebrations/components/Footer.tsx`
-
----
-
-## Deployment Checklist
-
-- [ ] `@netlify/plugin-nextjs` installed in all 4 apps
-- [ ] `netlify.toml` added to all 4 apps
-- [ ] All 4 sites deployed and building successfully on Netlify
-- [ ] Custom domains connected and SSL active
-- [ ] Admin login works with real credentials
-- [ ] Contact forms submit successfully
-- [ ] Supabase DB set up and schema applied
-- [ ] All `localhost` links replaced with production URLs
+- [ ] `apps/aether` builds cleanly (`pnpm --filter @aether/web build`)
+- [ ] Netlify deploy succeeds
+- [ ] `aether.com.ph` domain connected + SSL active
+- [ ] Contact forms working (Resend API key set)
+- [ ] Gallery photos replaced with real images
+- [ ] PostgreSQL running on Ubuntu
+- [ ] `apps/admin` accessible via Tailscale IP
 - [ ] Admin password changed from default (`aether2026`)
-- [ ] `.env.local` files are NOT committed to git
+- [ ] `.env.local` files NOT committed to git
+- [ ] Analytics tracking active

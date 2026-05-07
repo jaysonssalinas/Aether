@@ -23,15 +23,15 @@ You're building **ONE integrated business** with three revenue streams:
 ## PHASES (Core Business Only)
 
 ### PHASE 1: Website Launch (Month 1-2) ✓ CRITICAL
-**What:** Design and deploy aether.com.ph (hub) + digital.aether + celebrations.aether  
+**What:** Deploy `aether.com.ph` — one domain, with `/digital` and `/celebrations` as sections  
 **Why:** You can't sell without a website  
 **Owner:** Jayson (design + technical decisions)  
-**Timeline:** Week 1 = design finalized | Week 2-4 = built | Week 5 = live
+**Timeline:** Week 1 = content audit done | Week 2-4 = polished | Week 5 = live
 
 **Checklist:**
 - [ ] Website design approved
-- [ ] Three domains live (aether, digital, celebrations)
-- [ ] Contact forms working
+- [ ] `aether.com.ph` live (single domain, both divisions as routes)
+- [ ] Contact forms working (Resend)
 - [ ] Analytics tracking
 
 **Success:** Websites live + getting organic traffic
@@ -134,10 +134,9 @@ You're building **ONE integrated business** with three revenue streams:
    - See MRR at a glance
 
 3. **Website** (customer-facing)
-   - aether.com.ph (hub)
-   - digital.aether.com.ph (services + pricing)
-   - celebrations.aether.com.ph (gallery + pricing)
-   - All pull from CMS (Remlyn can update without code)
+   - `aether.com.ph` — one domain, two division sections (`/digital/*` + `/celebrations/*`)
+   - Deployed to Netlify free tier
+   - Remlyn can update content via admin CRM (no coding needed)
 
 ### What CAN Wait (Build if Time)
 - Customer portal (they can email instead)
@@ -254,27 +253,20 @@ Next month: Website #4-5 closing. Printing docs nearly done.
 
 ```
 C:\Projects\Aether\
-├── ROADMAP.md (this file)
-├── DESIGN_BRIEF.md (design system, colors, typography)
-├── CLAUDE_CODE_PROMPT.md (the prompt for VS Code)
-├── src/
-│   ├── pages/
-│   ├── components/
-│   ├── styles/
-│   └── config.js (centralizes all prices + product info)
-├── admin/
-│   ├── pricing-panel/
-│   ├── customer-dashboard/
-│   └── config.js
-├── .github/
-│   └── TEAM_GUIDELINES.md (for future team members)
+├── ROADMAP_MINIMALIST_LOCKED.md  (this file)
+├── AETHER_LOGO_BRAND_GUIDE_FINAL_v4_YOUR_DESIGN.md
+├── apps/
+│   ├── aether/    → aether.com.ph — customer website (Netlify)
+│   └── admin/     → CRM + operations (local Ubuntu server)
+├── packages/
+│   └── config/    → shared brand colors, products, pricing
 └── docs/
     ├── DEPLOYMENT.md
-    ├── INSTALLATION.md
-    └── FAQ.md
+    ├── SETUP.md
+    └── superpowers/specs/  → architecture + design specs
 ```
 
-**All files live here. Claude Code references ROADMAP.md to stay aligned.**
+**Architecture decision:** 1 public domain (`aether.com.ph`) + local CRM on Ubuntu via Tailscale/Omada VPN. See `docs/superpowers/specs/2026-05-07-aether-architecture-design.md`.
 
 ---
 
@@ -284,7 +276,7 @@ You only need to know:
 
 **Month 1-2:** 
 - Website is being built. Your job: provide content + photos for Celebrations section.
-- Result: celebrations.aether.com.ph goes live with your gallery + services
+- Result: `aether.com.ph/celebrations` goes live with your gallery + services
 
 **Month 2-3:**
 - Jayson is selling website services. You help with client onboarding + happy clients.
