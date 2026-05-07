@@ -1,22 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import './typography.css';
 
 @theme inline {
   /* Brand colors */
   --color-brand-pink: #ff1493;
   --color-brand-magenta: #ff4081;
   --color-brand-purple: #6a4c93;
-  --color-brand-dark: #0a0a0a;
-  --color-brand-card: #111111;
-  --color-brand-border: #1e1e1e;
-  --color-brand-light: #f5f5f0;
-  --color-brand-muted: #999999;
+  --color-brand-dark: #0a0a0a;       /* logo-internal only */
+  --color-brand-card: #ffffff;
+  --color-brand-border: #e8e0f5;
+  --color-brand-light: #f8f5ff;
+  --color-brand-alt: #f5f0ff;
+  --color-brand-muted: #888888;
   --color-brand-gold: #b8860b;
   --color-brand-cyan: #00bcd4;
 
   /* Fonts */
   --font-display: 'Playfair Display', Georgia, serif;
+  --font-display-digital: 'Poppins', system-ui, sans-serif;
   --font-body: 'Inter', -apple-system, sans-serif;
+  --font-body-celebrations: 'Lato', system-ui, sans-serif;
   --font-sans: var(--font-body);
 }
 
@@ -34,8 +38,8 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: #f5f5f0;
+  background: #ffffff;
+  color: #1a1a1a;
   font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,6 +47,17 @@ body {
 
 .font-display {
   font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Brand-level eyebrow label — used on homepage where no data-section wrapper applies */
+.text-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  display: block;
 }
 
 .gradient-text {

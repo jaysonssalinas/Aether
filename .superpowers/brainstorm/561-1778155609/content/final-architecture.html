@@ -1,0 +1,121 @@
+<h2>Aether — Final Architecture Design</h2>
+<p class="subtitle">1 domain · Local CRM · Zero recurring infrastructure cost</p>
+
+<div style="display:flex; flex-direction:column; gap:16px; margin-top:24px;">
+
+  <!-- Cost Banner -->
+  <div style="background:#0d1a0d; border:1px solid #44884470; border-radius:8px; padding:14px 20px; display:flex; gap:32px; flex-wrap:wrap; align-items:center;">
+    <div style="color:#77cc77; font-weight:700; font-size:14px;">💰 Total Monthly Cost</div>
+    <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:12px;">
+      <span style="color:#99ddaa;">Domain (aether.com.ph) — ~₱600/yr</span>
+      <span style="color:#99ddaa;">Netlify Hosting — Free</span>
+      <span style="color:#99ddaa;">Tailscale — Free</span>
+      <span style="color:#99ddaa;">Ubuntu Server — Already owned</span>
+      <span style="color:#99ddaa;">PostgreSQL — Free (self-hosted)</span>
+      <span style="color:#ffdd88; font-weight:600;">= ~₱50/month equivalent</span>
+    </div>
+  </div>
+
+  <div class="split">
+
+    <!-- PUBLIC SIDE -->
+    <div class="mockup">
+      <div class="mockup-header" style="background:#1a1a2e; border-color:#6a4c9380;">☁ Cloud — Customer Website</div>
+      <div class="mockup-body" style="padding:16px; font-size:12px;">
+
+        <div style="text-align:center; margin-bottom:12px;">
+          <div style="display:inline-block; background:#ff14930f; border:1px solid #ff149340; border-radius:20px; padding:4px 14px; color:#ff9acc; font-size:11px; font-weight:600;">aether.com.ph</div>
+        </div>
+
+        <div style="background:#0d0d1a; border:1px solid #6a4c9340; border-radius:6px; padding:12px; margin-bottom:8px;">
+          <div style="color:#c4a0e8; font-weight:600; margin-bottom:8px;">apps/aether → Netlify (Free)</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:#1a1a30; color:#aaaacc; border:1px solid #44448850; border-radius:3px; padding:2px 8px; font-size:11px; width:160px;">/  — Hub (Aether Home)</span>
+              <span style="color:#555; font-size:11px;">brand + both divisions</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:#2a1020; color:#ff9acc; border:1px solid #ff149340; border-radius:3px; padding:2px 8px; font-size:11px; width:160px;">/digital/*</span>
+              <span style="color:#555; font-size:11px;">services, pricing, portfolio, contact</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:#1a102a; color:#c4a0e8; border:1px solid #6a4c9340; border-radius:3px; padding:2px 8px; font-size:11px; width:160px;">/celebrations/*</span>
+              <span style="color:#555; font-size:11px;">services, pricing, gallery, contact</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:#1a1a2a; color:#8888aa; border:1px solid #44448840; border-radius:3px; padding:2px 8px; font-size:11px; width:160px;">/about  /contact</span>
+              <span style="color:#555; font-size:11px;">founders story, global contact</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#1a0d0d; border:1px solid #88444440; border-radius:4px; padding:8px 12px; font-size:11px;">
+          <div style="color:#cc7777; font-weight:600; margin-bottom:4px;">🗑 To Remove (after content audit)</div>
+          <div style="color:#664444;">apps/digital — redundant subdomain app</div>
+          <div style="color:#664444;">apps/celebrations — redundant subdomain app</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIVATE SIDE -->
+    <div class="mockup">
+      <div class="mockup-header" style="background:#1e1a0d; border-color:#ddaa5580;">🖥 Local Ubuntu — CRM & Operations</div>
+      <div class="mockup-body" style="padding:16px; font-size:12px;">
+
+        <div style="text-align:center; margin-bottom:12px;">
+          <div style="display:inline-block; background:#ddaa550f; border:1px solid #ddaa5540; border-radius:20px; padding:4px 14px; color:#ddbb77; font-size:11px; font-weight:600;">Private Network Only</div>
+        </div>
+
+        <div style="background:#1a1505; border:1px solid #88664440; border-radius:6px; padding:12px; margin-bottom:8px;">
+          <div style="color:#ddbb77; font-weight:600; margin-bottom:8px;">apps/admin — Node/Next.js</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-size:11px; color:#886644;">
+            <span>📋 Customers / Leads</span>
+            <span>💰 Pricing Management</span>
+            <span>📊 Reports / Analytics</span>
+            <span>🗂 Project Tracking</span>
+          </div>
+        </div>
+
+        <div style="background:#100d05; border:1px solid #55441530; border-radius:6px; padding:10px; margin-bottom:8px; font-size:11px;">
+          <div style="color:#aa8833; font-weight:600; margin-bottom:6px;">🗄 PostgreSQL (self-hosted)</div>
+          <div style="color:#554422;">Customers · Pricing · Subscriptions</div>
+          <div style="color:#554422;">All data stays on your machine</div>
+        </div>
+
+        <div style="background:#0d100d; border:1px solid #33663340; border-radius:6px; padding:10px; font-size:11px;">
+          <div style="color:#77aa77; font-weight:600; margin-bottom:6px;">🔐 Access — Two Layers</div>
+          <div style="margin-bottom:4px; color:#446644;"><span style="color:#88cc88;">Now:</span> Tailscale — you + Remlyn, anywhere, 10 min setup</div>
+          <div style="color:#446644;"><span style="color:#88cc88;">Later:</span> Omada OpenVPN — employees, unlimited, your ER605</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Timeline -->
+  <div style="background:#0d0d0d; border:1px solid #33333360; border-radius:8px; padding:16px 20px;">
+    <div style="color:#aaaaaa; font-weight:600; margin-bottom:12px; font-size:13px;">📅 Suggested Build Order (May → December 2026)</div>
+    <div style="display:flex; gap:0; flex-wrap:wrap;">
+      <div style="flex:1; min-width:140px; border-right:1px solid #222; padding:0 16px 0 0; margin-right:16px;">
+        <div style="color:#ff9acc; font-size:11px; font-weight:700; margin-bottom:4px;">PHASE 1 · May–Jun</div>
+        <div style="color:#555; font-size:11px; line-height:1.7;">Content audit & merge<br/>Remove redundant apps<br/>Deploy aether.com.ph</div>
+      </div>
+      <div style="flex:1; min-width:140px; border-right:1px solid #222; padding:0 16px 0 0; margin-right:16px;">
+        <div style="color:#c4a0e8; font-size:11px; font-weight:700; margin-bottom:4px;">PHASE 2 · Jul–Aug</div>
+        <div style="color:#555; font-size:11px; line-height:1.7;">Ubuntu CRM setup<br/>PostgreSQL + admin app<br/>Tailscale access</div>
+      </div>
+      <div style="flex:1; min-width:140px; border-right:1px solid #222; padding:0 16px 0 0; margin-right:16px;">
+        <div style="color:#ddbb77; font-size:11px; font-weight:700; margin-bottom:4px;">PHASE 3 · Sep–Oct</div>
+        <div style="color:#555; font-size:11px; line-height:1.7;">CRM features build-out<br/>Contact form → email<br/>Gallery with real photos</div>
+      </div>
+      <div style="flex:1; min-width:140px;">
+        <div style="color:#77cc77; font-size:11px; font-weight:700; margin-bottom:4px;">PHASE 4 · Nov–Dec</div>
+        <div style="color:#555; font-size:11px; line-height:1.7;">Polish + QA<br/>Omada VPN (if hiring)<br/>Go live 🚀</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px; font-size:11px;">Does this architecture match your vision? Confirm in the terminal and we'll write the spec.</p>

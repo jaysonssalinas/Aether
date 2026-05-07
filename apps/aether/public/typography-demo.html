@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aether Typography System — Demo</title>
+
+  <!-- Google Fonts: all four faces loaded here for the standalone demo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Paste of typography.css tokens (self-contained for this demo) ─── */
+
+    :root {
+      --font-digital-heading:       'Poppins', system-ui, sans-serif;
+      --font-digital-body:          'Inter', system-ui, sans-serif;
+      --font-celebrations-heading:  'Playfair Display', Georgia, serif;
+      --font-celebrations-body:     'Lato', system-ui, sans-serif;
+
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-lg:   1.125rem;
+      --text-xl:   clamp(1.125rem, 2vw, 1.25rem);
+      --text-2xl:  clamp(1.25rem, 2.5vw, 1.5rem);
+      --text-3xl:  clamp(1.5rem, 3vw, 1.875rem);
+      --text-4xl:  clamp(1.875rem, 4vw, 2.25rem);
+      --text-5xl:  clamp(2.25rem, 5vw, 3rem);
+      --text-6xl:  clamp(2.75rem, 6vw, 3.75rem);
+
+      --leading-tight:    1.15;
+      --leading-snug:     1.3;
+      --leading-normal:   1.5;
+      --leading-relaxed:  1.625;
+      --leading-loose:    1.8;
+
+      --tracking-tighter:  -0.04em;
+      --tracking-tight:    -0.02em;
+      --tracking-normal:    0em;
+      --tracking-wide:      0.03em;
+      --tracking-wider:     0.06em;
+      --tracking-widest:    0.12em;
+
+      --weight-light:     300;
+      --weight-regular:   400;
+      --weight-medium:    500;
+      --weight-semibold:  600;
+      --weight-bold:      700;
+      --weight-extrabold: 800;
+
+      --color-text-primary:   #1a1a1a;
+      --color-text-secondary: #555555;
+      --color-text-muted:     #888888;
+      --color-text-inverse:   #ffffff;
+      --color-text-accent:    #c0006a;
+      --color-text-purple:    #5a3f82;
+
+      --gradient-brand: linear-gradient(135deg, #ff1493 0%, #ff4081 40%, #6a4c93 100%);
+      --gradient-text:  linear-gradient(135deg, #ff1493, #6a4c93);
+    }
+
+    /* ─── Digital section tokens ─── */
+    [data-section="digital"] {
+      --section-heading-font: var(--font-digital-heading);
+      --section-body-font:    var(--font-digital-body);
+      --section-h1-size:   var(--text-5xl);
+      --section-h2-size:   var(--text-4xl);
+      --section-h3-size:   var(--text-3xl);
+      --section-h4-size:   var(--text-2xl);
+      --section-h1-tracking:    var(--tracking-tighter);
+      --section-h2-tracking:    var(--tracking-tight);
+      --section-h3-tracking:    var(--tracking-tight);
+      --section-h4-tracking:    var(--tracking-normal);
+      --section-body-tracking:  var(--tracking-normal);
+      --section-label-tracking: var(--tracking-widest);
+      --section-h1-weight:   var(--weight-extrabold);
+      --section-h2-weight:   var(--weight-bold);
+      --section-h3-weight:   var(--weight-semibold);
+      --section-h4-weight:   var(--weight-semibold);
+      --section-body-weight: var(--weight-regular);
+      --section-h1-leading:   var(--leading-tight);
+      --section-h2-leading:   var(--leading-tight);
+      --section-h3-leading:   var(--leading-snug);
+      --section-h4-leading:   var(--leading-normal);
+      --section-body-leading: var(--leading-relaxed);
+    }
+    [data-section="digital"].on-dark {
+      --color-text-primary: #f3f7ff;
+      --color-text-secondary: #b8c4dc;
+      --color-text-muted: #8ea0c8;
+      --color-text-accent: #7dd3fc;
+      --gradient-text: linear-gradient(135deg, #60a5fa 0%, #22d3ee 45%, #a78bfa 100%);
+    }
+
+    /* ─── Celebrations section tokens ─── */
+    [data-section="celebrations"] {
+      --section-heading-font: var(--font-celebrations-heading);
+      --section-body-font:    var(--font-celebrations-body);
+      --section-h1-size:   var(--text-5xl);
+      --section-h2-size:   var(--text-4xl);
+      --section-h3-size:   var(--text-3xl);
+      --section-h4-size:   var(--text-2xl);
+      --section-h1-tracking:    var(--tracking-normal);
+      --section-h2-tracking:    var(--tracking-wide);
+      --section-h3-tracking:    var(--tracking-wider);
+      --section-h4-tracking:    var(--tracking-wider);
+      --section-body-tracking:  var(--tracking-wide);
+      --section-label-tracking: var(--tracking-widest);
+      --section-h1-weight:   var(--weight-bold);
+      --section-h2-weight:   var(--weight-semibold);
+      --section-h3-weight:   var(--weight-medium);
+      --section-h4-weight:   var(--weight-regular);
+      --section-body-weight: var(--weight-regular);
+      --section-h1-leading:   var(--leading-snug);
+      --section-h2-leading:   var(--leading-normal);
+      --section-h3-leading:   var(--leading-relaxed);
+      --section-h4-leading:   var(--leading-relaxed);
+      --section-body-leading: var(--leading-loose);
+    }
+
+    /* ─── Element bindings ─── */
+    [data-section] h1 { font-family: var(--section-heading-font); font-size: var(--section-h1-size); font-weight: var(--section-h1-weight); line-height: var(--section-h1-leading); letter-spacing: var(--section-h1-tracking); color: var(--color-text-primary); margin: 0 0 0.5em; }
+    [data-section] h2 { font-family: var(--section-heading-font); font-size: var(--section-h2-size); font-weight: var(--section-h2-weight); line-height: var(--section-h2-leading); letter-spacing: var(--section-h2-tracking); color: var(--color-text-primary); margin: 0 0 0.5em; }
+    [data-section] h3 { font-family: var(--section-heading-font); font-size: var(--section-h3-size); font-weight: var(--section-h3-weight); line-height: var(--section-h3-leading); letter-spacing: var(--section-h3-tracking); color: var(--color-text-primary); margin: 0 0 0.5em; }
+    [data-section] h4 { font-family: var(--section-heading-font); font-size: var(--section-h4-size); font-weight: var(--section-h4-weight); line-height: var(--section-h4-leading); letter-spacing: var(--section-h4-tracking); color: var(--color-text-primary); margin: 0 0 0.5em; }
+    [data-section] p  { font-family: var(--section-body-font); font-size: var(--text-base); font-weight: var(--section-body-weight); line-height: var(--section-body-leading); letter-spacing: var(--section-body-tracking); color: var(--color-text-secondary); margin: 0 0 1.25em; }
+    [data-section] .text-lead  { font-family: var(--section-body-font); font-size: var(--text-lg); font-weight: var(--weight-light); line-height: var(--leading-loose); }
+    [data-section] small       { font-family: var(--section-body-font); font-size: var(--text-sm); color: var(--color-text-muted); }
+    [data-section] .text-label { font-family: var(--section-body-font); font-size: var(--text-xs); font-weight: var(--weight-semibold); letter-spacing: var(--section-label-tracking); text-transform: uppercase; color: var(--color-text-accent); display: block; margin-bottom: 0.75em; }
+    [data-section] .text-gradient { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* ─── Demo page chrome ─── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      color: #1a1a1a;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top banner */
+    .demo-header {
+      background: linear-gradient(135deg, #ff1493 0%, #ff4081 40%, #6a4c93 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.75rem;
+      text-align: center;
+    }
+    .demo-header .wordmark {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 0.25em;
+    }
+    .demo-header .subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin: 0;
+    }
+
+    /* Nav pills */
+    .demo-nav {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 1rem 1rem 0;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+    }
+    .demo-nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #555;
+      padding: 0.4em 1em;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      transition: all 0.2s;
+    }
+    .demo-nav a:hover { color: #ff1493; border-color: #ff1493; }
+
+    /* Comparison grid */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 900px) {
+      .demo-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Section panels */
+    .panel {
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .panel-digital {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(96, 165, 250, 0.18), transparent 42%),
+        radial-gradient(circle at 80% 15%, rgba(167, 139, 250, 0.16), transparent 45%),
+        #05070d;
+      border-right: 1px solid rgba(125, 211, 252, 0.18);
+    }
+    .panel-celebrations {
+      background:
+        radial-gradient(circle at 85% 12%, rgba(255, 20, 147, 0.09), transparent 42%),
+        radial-gradient(circle at 12% 85%, rgba(255, 64, 129, 0.07), transparent 44%),
+        #fffaf8;
+    }
+
+    /* Panel label strip */
+    .panel-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3em 0.8em;
+      border-radius: 999px;
+      margin-bottom: 2.5rem;
+    }
+    .panel-tag-digital     { background: rgba(96, 165, 250, 0.12); color: #7dd3fc; border: 1px solid rgba(125, 211, 252, 0.35); }
+    .panel-tag-celebrations { background: rgba(255, 20, 147, 0.1); color: #c0006a; border: 1px solid rgba(255, 20, 147, 0.28); }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e0d7f0, transparent);
+      margin: 2.5rem 0;
+    }
+    #digital-panel .divider,
+    #digital-full .divider {
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.45), transparent);
+    }
+    #celebrations-panel .divider,
+    #celebrations-full .divider {
+      background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.24), transparent);
+    }
+
+    /* Spec table */
+    .spec-block {
+      font-family: 'Inter', monospace;
+      font-size: 0.75rem;
+      color: #888;
+      background: #f7f7f7;
+      border-left: 3px solid #e0d7f0;
+      padding: 0.6em 1em;
+      margin-top: 0.25em;
+      margin-bottom: 1.5rem;
+      border-radius: 0 4px 4px 0;
+    }
+    #digital-panel .spec-block {
+      color: #9fb2d4;
+      background: rgba(12, 18, 32, 0.82);
+      border-left: 3px solid #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.22);
+      box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.08);
+    }
+    #digital-panel h1,
+    #digital-panel h2,
+    #digital-panel h3,
+    #digital-panel h4,
+    #digital-full h1,
+    #digital-full h2,
+    #digital-full h3,
+    #digital-full h4 {
+      text-shadow: 0 0 18px rgba(125, 211, 252, 0.08);
+    }
+    #digital-panel .text-label,
+    #digital-full .text-label {
+      color: #7dd3fc;
+    }
+    #celebrations-panel .text-label,
+    #celebrations-full .text-label {
+      color: #d10072;
+    }
+    #digital-full {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(96, 165, 250, 0.14), transparent 40%),
+        radial-gradient(circle at 85% 8%, rgba(167, 139, 250, 0.14), transparent 45%),
+        #05070d;
+      border-top: 4px solid rgba(96, 165, 250, 0.45) !important;
+    }
+    #celebrations-panel h1 em,
+    #celebrations-full h1 em {
+      color: #c0006a;
+      text-shadow: 0 0 14px rgba(255, 20, 147, 0.14);
+    }
+    #celebrations-panel .spec-block,
+    #celebrations-full .spec-block {
+      border-left-color: rgba(209, 0, 114, 0.3);
+    }
+
+    /* Token reference table */
+    .token-section {
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3.5rem);
+      background: #f9f7ff;
+      border-top: 1px solid #e8e0f5;
+    }
+    .token-section h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1a1a1a;
+      margin: 0 0 1.5rem;
+    }
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .token-card {
+      background: #0d0d0d;
+      border: 1px solid #e8e0f5;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .token-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6a4c93;
+      margin: 0 0 0.75rem;
+    }
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3em 0;
+      border-bottom: 1px solid #f0ebfa;
+      font-size: 0.8125rem;
+    }
+    .token-row:last-child { border-bottom: none; }
+    .token-name  { font-family: 'Inter', monospace; color: #888; }
+    .token-value { font-family: 'Inter', monospace; color: #1a1a1a; font-weight: 500; }
+
+    /* Color swatches */
+    .swatch-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .swatch {
+      width: 2rem; height: 2rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Footer */
+    .demo-footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      color: #aaa;
+      border-top: 1px solid #eee;
+    }
+    .demo-footer strong { color: #6a4c93; }
+
+    /* Responsive tablet/desktop adjustments */
+    @media (min-width: 640px) {
+      :root { --text-base: 1.0625rem; --text-lg: 1.1875rem; }
+    }
+    @media (min-width: 1024px) {
+      :root { --text-base: 1.125rem; --text-lg: 1.25rem; }
+      [data-section="digital"] h1 { letter-spacing: -0.05em; }
+      [data-section="celebrations"] h1 { letter-spacing: 0.01em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════════════════════════ -->
+  <header class="demo-header">
+    <p class="wordmark">AETHER</p>
+    <p class="subtitle">Typography System — Design Reference</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAV
+  ══════════════════════════════════════════════════════════════ -->
+  <nav class="demo-nav" aria-label="Jump to section">
+    <a href="#comparison">Side-by-Side</a>
+    <a href="#digital-full">Digital Full</a>
+    <a href="#celebrations-full">Celebrations Full</a>
+    <a href="#tokens">Token Reference</a>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIDE-BY-SIDE COMPARISON
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="comparison">
+    <div style="background:#fafafa; padding: 1.5rem 2rem; border-bottom: 1px solid #eee;">
+      <p style="font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin:0;">
+        Side-by-Side Comparison — All heading levels at a glance
+      </p>
+    </div>
+
+    <div class="demo-grid">
+
+      <!-- ── DIGITAL panel ── -->
+      <div class="panel panel-digital on-dark" data-section="digital" id="digital-panel" style="color:#f5f5f0;">
+        <span class="panel-tag panel-tag-digital">⚡ Digital Section</span>
+
+        <span class="text-label">Poppins · Extrabold · −0.04em tracking</span>
+        <h1 style="color:#f5f5f0;">Build Systems<br>That Scale</h1>
+        <div class="spec-block">H1 · Poppins 800 · clamp(2.25rem→3rem) · leading 1.15 · tracking −0.04em</div>
+
+        <span class="text-label">Poppins · Bold · −0.02em tracking</span>
+        <h2 style="color:#f5f5f0;">Digital Services</h2>
+        <div class="spec-block">H2 · Poppins 700 · clamp(1.875rem→2.25rem) · leading 1.15 · tracking −0.02em</div>
+
+        <span class="text-label">Poppins · Semibold · −0.02em tracking</span>
+        <h3 style="color:#f5f5f0;">Custom Websites</h3>
+        <div class="spec-block">H3 · Poppins 600 · clamp(1.5rem→1.875rem) · leading 1.3 · tracking −0.02em</div>
+
+        <span class="text-label">Poppins · Semibold · 0em tracking</span>
+        <h4 style="color:#f5f5f0;">Software Systems</h4>
+        <div class="spec-block">H4 · Poppins 600 · clamp(1.25rem→1.5rem) · leading 1.5</div>
+
+        <div class="divider"></div>
+
+        <span class="text-label">Body — Inter Regular</span>
+        <p class="text-lead" style="color:#999999;">We build web solutions and software systems that empower Philippine businesses to compete in the digital age.</p>
+        <div class="spec-block">Lead · Inter 300 · 1.125rem · leading 1.8 · tracking 0</div>
+
+        <p style="color:#999999;">From custom websites to inventory and printing systems, Aether Digital provides end-to-end digital transformation. We focus on practical, scalable solutions that grow with your business — not templated products that limit you.</p>
+        <div class="spec-block">Body · Inter 400 · 1rem · leading 1.625 · tracking 0</div>
+
+        <small>Aether Digital · Systems that scale</small>
+        <div class="spec-block">Small · Inter 400 · 0.875rem · color #888888</div>
+      </div>
+
+      <!-- ── CELEBRATIONS panel ── -->
+      <div class="panel panel-celebrations" data-section="celebrations" id="celebrations-panel">
+        <span class="panel-tag panel-tag-celebrations">🌸 Celebrations Section</span>
+
+        <span class="text-label">Playfair Display · Bold · 0em tracking</span>
+        <h1>Turning Moments<br><em>Into Memories</em></h1>
+        <div class="spec-block">H1 · Playfair Display 700 · clamp(2.25rem→3rem) · leading 1.3 · tracking 0</div>
+
+        <span class="text-label">Playfair Display · Semibold · 0.03em tracking</span>
+        <h2>Event Services</h2>
+        <div class="spec-block">H2 · Playfair Display 600 · clamp(1.875rem→2.25rem) · leading 1.5 · tracking 0.03em</div>
+
+        <span class="text-label">Playfair Display · Medium · 0.06em tracking</span>
+        <h3>Wedding Planning</h3>
+        <div class="spec-block">H3 · Playfair Display 500 · clamp(1.5rem→1.875rem) · leading 1.625 · tracking 0.06em</div>
+
+        <span class="text-label">Playfair Display · Regular · 0.06em tracking</span>
+        <h4>Venue &amp; Décor</h4>
+        <div class="spec-block">H4 · Playfair Display 400 · clamp(1.25rem→1.5rem) · leading 1.625</div>
+
+        <div class="divider"></div>
+
+        <span class="text-label">Body — Lato Light</span>
+        <p class="text-lead">Every celebration is a story worth telling beautifully. We craft the details so you can be fully present for the moments that matter.</p>
+        <div class="spec-block">Lead · Lato 300 · 1.125rem · leading 1.8 · tracking 0.03em</div>
+
+        <p>From intimate weddings to grand corporate gatherings, Aether Celebrations handles every detail with warmth and precision. We believe the magic is in the care we take — from first consultation to the final farewell.</p>
+        <div class="spec-block">Body · Lato 400 · 1rem · leading 1.8 · tracking 0.03em</div>
+
+        <small>Aether Celebrations · Moments into memories</small>
+        <div class="spec-block">Small · Lato 400 · 0.875rem · color #888888</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DIGITAL — FULL CONTENT SAMPLE
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="digital-full" class="on-dark" data-section="digital" style="padding: clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem); border-top: 4px solid #1a1a1a;">
+
+    <span class="text-label">Aether Digital · Full Sample</span>
+    <h1><span class="text-gradient">Aether Digital</span></h1>
+    <p class="text-lead">Smart systems for businesses that mean business. We turn complexity into clarity.</p>
+
+    <div class="divider"></div>
+
+    <h2>Our Services</h2>
+    <p>We offer a focused range of digital services built around what Philippine businesses actually need — not what looks impressive on a deck. Every engagement starts with your goals and ends when they're met.</p>
+
+    <h3>Custom Website Design</h3>
+    <p>Clean, fast, mobile-first websites that represent your brand and convert visitors into clients. Two to four weeks from consultation to launch. Ongoing maintenance available.</p>
+
+    <h3>Software Systems</h3>
+    <p>Purpose-built POS, inventory, and printing management software. Designed for the realities of local operations — offline-capable, practical, and yours.</p>
+
+    <h4>Why Choose Aether Digital</h4>
+    <p>Local expertise. Honest timelines. No disappearing acts after launch. We build for the long run because our reputation depends on how well your business runs.</p>
+
+    <p><small>Ready to start? Contact us at <strong>contact@aether.ph</strong></small></p>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CELEBRATIONS — FULL CONTENT SAMPLE
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="celebrations-full" data-section="celebrations" style="padding: clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem); background:#fffaf8; border-top: 4px solid #e8d5c4;">
+
+    <span class="text-label">Aether Celebrations · Full Sample</span>
+    <h1><em><span class="text-gradient">Aether Celebrations</span></em></h1>
+    <p class="text-lead">Because the moments you cherish most deserve more than a checklist. They deserve an experience.</p>
+
+    <div class="divider" style="background: linear-gradient(90deg, transparent, #f5cfe0, transparent);"></div>
+
+    <h2>Our Services</h2>
+    <p>We coordinate every element of your celebration — from the first flower arrangement to the last farewell dance — so you can be fully present in every moment.</p>
+
+    <h3>Wedding Planning</h3>
+    <p>Your love story deserves a setting as unique as you are. We work from your vision outward, handling logistics, vendor coordination, and day-of execution with calm professionalism.</p>
+
+    <h3>Event Coordination</h3>
+    <p>Corporate milestones, debut celebrations, anniversaries, and everything in between. We bring the same attentiveness to every event, regardless of scale.</p>
+
+    <h4>Souvenirs &amp; Invitations</h4>
+    <p>Custom-designed keepsakes and printed materials that set the tone before guests arrive and leave a lasting impression after the last song plays.</p>
+
+    <p><small>Begin your journey with us — <strong>contact@aether.ph</strong></small></p>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TOKEN REFERENCE
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="tokens" class="token-section">
+    <h2>Token Reference</h2>
+
+    <div class="token-grid">
+
+      <div class="token-card">
+        <h3>Type Scale</h3>
+        <div class="token-row"><span class="token-name">--text-xs</span><span class="token-value">0.75rem · 12px</span></div>
+        <div class="token-row"><span class="token-name">--text-sm</span><span class="token-value">0.875rem · 14px</span></div>
+        <div class="token-row"><span class="token-name">--text-base</span><span class="token-value">1rem · 16px</span></div>
+        <div class="token-row"><span class="token-name">--text-lg</span><span class="token-value">1.125rem · 18px</span></div>
+        <div class="token-row"><span class="token-name">--text-2xl</span><span class="token-value">clamp 20–24px</span></div>
+        <div class="token-row"><span class="token-name">--text-3xl</span><span class="token-value">clamp 24–30px</span></div>
+        <div class="token-row"><span class="token-name">--text-4xl</span><span class="token-value">clamp 30–36px</span></div>
+        <div class="token-row"><span class="token-name">--text-5xl</span><span class="token-value">clamp 36–48px</span></div>
+        <div class="token-row"><span class="token-name">--text-6xl</span><span class="token-value">clamp 44–60px</span></div>
+      </div>
+
+      <div class="token-card">
+        <h3>Line Heights</h3>
+        <div class="token-row"><span class="token-name">--leading-tight</span><span class="token-value">1.15 — Display H1</span></div>
+        <div class="token-row"><span class="token-name">--leading-snug</span><span class="token-value">1.3 — H2/H3</span></div>
+        <div class="token-row"><span class="token-name">--leading-normal</span><span class="token-value">1.5 — Sub-heads</span></div>
+        <div class="token-row"><span class="token-name">--leading-relaxed</span><span class="token-value">1.625 — Body</span></div>
+        <div class="token-row"><span class="token-name">--leading-loose</span><span class="token-value">1.8 — Long prose</span></div>
+      </div>
+
+      <div class="token-card">
+        <h3>Letter Spacing</h3>
+        <div class="token-row"><span class="token-name">--tracking-tighter</span><span class="token-value">−0.04em · Digital H1</span></div>
+        <div class="token-row"><span class="token-name">--tracking-tight</span><span class="token-value">−0.02em · Digital H2/3</span></div>
+        <div class="token-row"><span class="token-name">--tracking-normal</span><span class="token-value">0em · Default</span></div>
+        <div class="token-row"><span class="token-name">--tracking-wide</span><span class="token-value">0.03em · Celeb body</span></div>
+        <div class="token-row"><span class="token-name">--tracking-wider</span><span class="token-value">0.06em · Celeb H3/4</span></div>
+        <div class="token-row"><span class="token-name">--tracking-widest</span><span class="token-value">0.12em · Labels</span></div>
+      </div>
+
+      <div class="token-card">
+        <h3>Font Weights</h3>
+        <div class="token-row"><span class="token-name">--weight-light</span><span class="token-value">300 — Lead text</span></div>
+        <div class="token-row"><span class="token-name">--weight-regular</span><span class="token-value">400 — Body</span></div>
+        <div class="token-row"><span class="token-name">--weight-medium</span><span class="token-value">500 — Celeb H3</span></div>
+        <div class="token-row"><span class="token-name">--weight-semibold</span><span class="token-value">600 — H3/4, labels</span></div>
+        <div class="token-row"><span class="token-name">--weight-bold</span><span class="token-value">700 — H1/2</span></div>
+        <div class="token-row"><span class="token-name">--weight-extrabold</span><span class="token-value">800 — Digital H1</span></div>
+      </div>
+
+      <div class="token-card">
+        <h3>Colors (WCAG AA)</h3>
+        <div class="token-row"><span class="token-name">--color-text-primary</span><span class="token-value" style="color:#1a1a1a;">#1a1a1a · 16.75:1</span></div>
+        <div class="token-row"><span class="token-name">--color-text-secondary</span><span class="token-value" style="color:#555555;">#555555 · 7.0:1</span></div>
+        <div class="token-row"><span class="token-name">--color-text-muted</span><span class="token-value" style="color:#888888;">#888888 · 3.5:1*</span></div>
+        <div class="token-row"><span class="token-name">--color-text-accent</span><span class="token-value" style="color:#c0006a;">#c0006a · 4.6:1</span></div>
+        <div class="token-row"><span class="token-name">--color-text-purple</span><span class="token-value" style="color:#5a3f82;">#5a3f82 · 5.2:1</span></div>
+        <div style="margin-top:0.5rem; font-size:0.7rem; color:#aaa;">* muted: large text only per WCAG</div>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#1a1a1a;" title="#1a1a1a"></div>
+          <div class="swatch" style="background:#555555;" title="#555555"></div>
+          <div class="swatch" style="background:#888888;" title="#888888"></div>
+          <div class="swatch" style="background:#c0006a;" title="#c0006a"></div>
+          <div class="swatch" style="background:#5a3f82;" title="#5a3f82"></div>
+        </div>
+      </div>
+
+      <div class="token-card">
+        <h3>Font Families</h3>
+        <div class="token-row" style="flex-direction:column; align-items:flex-start; gap:0.2em;">
+          <span class="token-name">--font-digital-heading</span>
+          <span style="font-family:'Poppins',sans-serif; font-size:1.1rem; font-weight:700;">Poppins — Aa Bb Cc</span>
+        </div>
+        <div class="token-row" style="flex-direction:column; align-items:flex-start; gap:0.2em;">
+          <span class="token-name">--font-digital-body</span>
+          <span style="font-family:'Inter',sans-serif; font-size:1rem;">Inter — Aa Bb Cc</span>
+        </div>
+        <div class="token-row" style="flex-direction:column; align-items:flex-start; gap:0.2em;">
+          <span class="token-name">--font-celebrations-heading</span>
+          <span style="font-family:'Playfair Display',serif; font-size:1.1rem;">Playfair Display — Aa Bb</span>
+        </div>
+        <div class="token-row" style="flex-direction:column; align-items:flex-start; gap:0.2em; border-bottom:none;">
+          <span class="token-name">--font-celebrations-body</span>
+          <span style="font-family:'Lato',sans-serif; font-size:1rem;">Lato — Aa Bb Cc</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════════ -->
+  <footer class="demo-footer">
+    <strong>Aether Typography System</strong> · typography.css · v1.0
+    <br>
+    Import in Next.js: <code style="font-size:0.75rem; background:#f0ebfa; padding:0.1em 0.4em; border-radius:3px;">@import './typography.css'</code> in globals.css or layout
+  </footer>
+
+</body>
+</html>
+

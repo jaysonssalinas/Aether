@@ -23,18 +23,18 @@ const styles: Record<ButtonVariant, React.CSSProperties> = {
     border: 'none',
   },
   secondary: {
-    background: '#111111',
-    color: '#f5f5f0',
-    border: '1px solid #1e1e1e',
+    background: '#f5f0ff',
+    color: '#1a1a1a',
+    border: '1px solid #e0d7f0',
   },
   outline: {
     background: 'transparent',
-    color: '#f5f5f0',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    color: '#1a1a1a',
+    border: '1px solid rgba(106, 76, 147, 0.3)',
   },
   ghost: {
     background: 'transparent',
-    color: '#999999',
+    color: '#888888',
     border: 'none',
   },
 };
@@ -56,13 +56,13 @@ export function Button({
   disabled = false,
   external = false,
 }: ButtonProps) {
-  const baseClass = `inline-flex items-center justify-center rounded-sm font-medium tracking-wide transition-all duration-200 cursor-pointer ${sizes[size]} ${className}`;
+  const baseClass = `inline-flex items-center justify-center rounded-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer ${sizes[size]} ${className}`;
 
   const style = {
     ...styles[variant],
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
-    letterSpacing: '0.05em',
+    letterSpacing: '0.06em',
     fontFamily: "'Inter', sans-serif",
   };
 

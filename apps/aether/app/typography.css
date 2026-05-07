@@ -1,0 +1,379 @@
+/* =============================================================================
+   AETHER TYPOGRAPHY SYSTEM
+   =============================================================================
+   Two section personalities, one cohesive brand:
+
+   Digital  — Poppins headings, Inter body
+              Tight tracking, heavy weights → cutting-edge, innovative
+
+   Celebrations — Playfair Display headings, Lato body
+                  Generous spacing, graceful weights → celebratory, elegant
+
+   Usage:
+     <section data-section="digital">   or class="section-digital"
+     <section data-section="celebrations">  or class="section-celebrations"
+
+   Import after globals.css:
+     @import './typography.css';
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   1. GOOGLE FONTS
+   All four faces (Playfair Display, Inter, Poppins, Lato) are loaded in globals.css.
+   No import needed here — globals.css is always processed first.
+   ----------------------------------------------------------------------------- */
+
+
+/* -----------------------------------------------------------------------------
+   2. GLOBAL TYPE TOKENS
+   All measurements live here. Change one value → changes everywhere.
+   ----------------------------------------------------------------------------- */
+:root {
+  /* ── Font families ── */
+  --font-digital-heading:       'Poppins', system-ui, sans-serif;
+  --font-digital-body:          'Inter', system-ui, sans-serif;
+  --font-celebrations-heading:  'Playfair Display', Georgia, serif;
+  --font-celebrations-body:     'Lato', system-ui, sans-serif;
+
+  /* ── Type scale (fluid: min @ 320px → max @ 1280px) ──
+     Uses clamp(min, preferred-vw, max) so scaling is smooth
+     without a wall of breakpoints.                         */
+  --text-xs:   0.75rem;                         /* 12px – captions, labels      */
+  --text-sm:   0.875rem;                        /* 14px – secondary copy        */
+  --text-base: 1rem;                            /* 16px – base body             */
+  --text-lg:   1.125rem;                        /* 18px – large body / lead     */
+  --text-xl:   clamp(1.125rem, 2vw, 1.25rem);   /* 18–20px                      */
+  --text-2xl:  clamp(1.25rem, 2.5vw, 1.5rem);   /* 20–24px – H4                 */
+  --text-3xl:  clamp(1.5rem, 3vw, 1.875rem);    /* 24–30px – H3                 */
+  --text-4xl:  clamp(1.875rem, 4vw, 2.25rem);   /* 30–36px – H2                 */
+  --text-5xl:  clamp(2.25rem, 5vw, 3rem);       /* 36–48px – H1                 */
+  --text-6xl:  clamp(2.75rem, 6vw, 3.75rem);    /* 44–60px – Hero display       */
+  --text-7xl:  clamp(3rem, 7.5vw, 4.5rem);      /* 48–72px – Max hero           */
+
+  /* ── Line heights ── */
+  --leading-none:     1;
+  --leading-tight:    1.15;   /* Display headings – tight for big text          */
+  --leading-snug:     1.3;    /* Sub-headings                                   */
+  --leading-normal:   1.5;    /* General headings                               */
+  --leading-relaxed:  1.625;  /* Body text – comfortable reading                */
+  --leading-loose:    1.8;    /* Long-form prose, Celebrations                  */
+
+  /* ── Letter spacing ── */
+  --tracking-tighter:  -0.04em;   /* Digital H1 – maximum compression          */
+  --tracking-tight:    -0.02em;   /* Digital H2/H3                              */
+  --tracking-normal:    0em;      /* Default                                    */
+  --tracking-wide:      0.03em;   /* Celebrations body                          */
+  --tracking-wider:     0.06em;   /* Celebrations sub-headings, labels          */
+  --tracking-widest:    0.12em;   /* Section labels / eyebrows / all-caps       */
+
+  /* ── Font weights ── */
+  --weight-light:     300;
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+
+  /* ── Text colors (WCAG AA: ≥4.5:1 on white, ≥3:1 for large text) ── */
+  --color-text-primary:   #1a1a1a;  /* 16.75:1 on white ✓     */
+  --color-text-secondary: #555555;  /*  7.0:1  on white ✓     */
+  --color-text-muted:     #888888;  /*  3.5:1  on white – large text only */
+  --color-text-inverse:   #ffffff;  /* On dark / gradient backgrounds     */
+  --color-text-accent:    #c0006a;  /* Darkened pink – 4.6:1 on white ✓  */
+  --color-text-purple:    #5a3f82;  /* Darkened purple – 5.2:1 on white ✓ */
+
+  /* ── Shared gradient (matches globals.css) ── */
+  --gradient-text: linear-gradient(135deg, #ff1493, #6a4c93);
+}
+
+
+/* -----------------------------------------------------------------------------
+   3. DIGITAL SECTION TOKENS
+   Applied to any element with [data-section="digital"] or .section-digital.
+   Children inherit these custom properties through the cascade.
+
+   Design intent: Poppins is geometric and neutral → feels engineered.
+   Tight tracking + heavy weights read as confident and technical.
+   ----------------------------------------------------------------------------- */
+[data-section="digital"],
+.section-digital {
+  --section-heading-font:  var(--font-digital-heading);
+  --section-body-font:     var(--font-digital-body);
+
+  /* Heading sizes */
+  --section-h1-size:   var(--text-5xl);
+  --section-h2-size:   var(--text-4xl);
+  --section-h3-size:   var(--text-3xl);
+  --section-h4-size:   var(--text-2xl);
+
+  /* Tracking – compress as size increases; large Poppins reads cleanly tight */
+  --section-h1-tracking:    var(--tracking-tighter);
+  --section-h2-tracking:    var(--tracking-tight);
+  --section-h3-tracking:    var(--tracking-tight);
+  --section-h4-tracking:    var(--tracking-normal);
+  --section-body-tracking:  var(--tracking-normal);
+  --section-label-tracking: var(--tracking-widest);
+
+  /* Weights – heavier = more authoritative */
+  --section-h1-weight:   var(--weight-extrabold);
+  --section-h2-weight:   var(--weight-bold);
+  --section-h3-weight:   var(--weight-semibold);
+  --section-h4-weight:   var(--weight-semibold);
+  --section-body-weight: var(--weight-regular);
+
+  /* Leading – tight for big type, relaxed for reading copy */
+  --section-h1-leading:   var(--leading-tight);
+  --section-h2-leading:   var(--leading-tight);
+  --section-h3-leading:   var(--leading-snug);
+  --section-h4-leading:   var(--leading-normal);
+  --section-body-leading: var(--leading-relaxed);
+}
+
+[data-section="digital"].on-dark,
+.section-digital.on-dark {
+  --color-text-primary:   #f3f7ff;
+  --color-text-secondary: #b8c4dc;
+  --color-text-muted:     #8ea0c8;
+  --color-text-accent:    #7dd3fc;   /* cyan label color on dark digital */
+  --gradient-text: linear-gradient(135deg, #60a5fa 0%, #22d3ee 45%, #a78bfa 100%);
+}
+
+[data-section="digital"].on-dark h1,
+[data-section="digital"].on-dark h2,
+[data-section="digital"].on-dark h3,
+[data-section="digital"].on-dark h4,
+.section-digital.on-dark h1,
+.section-digital.on-dark h2,
+.section-digital.on-dark h3,
+.section-digital.on-dark h4 {
+  text-shadow: 0 0 18px rgba(125, 211, 252, 0.08);
+}
+
+
+/* -----------------------------------------------------------------------------
+   4. CELEBRATIONS SECTION TOKENS
+   Applied to any element with [data-section="celebrations"] or
+   .section-celebrations.
+
+   Design intent: Playfair Display has ink-trap serifs and high contrast
+   strokes → feels like fine stationery. Lato's rounded terminals are warm
+   and approachable for guests reading event details. Generous spacing lets
+   both breathe like an invitation card.
+   ----------------------------------------------------------------------------- */
+[data-section="celebrations"],
+.section-celebrations {
+  --section-heading-font:  var(--font-celebrations-heading);
+  --section-body-font:     var(--font-celebrations-body);
+
+  /* Heading sizes – same scale, slightly smaller H1 to suit serif proportion */
+  --section-h1-size:   var(--text-5xl);
+  --section-h2-size:   var(--text-4xl);
+  --section-h3-size:   var(--text-3xl);
+  --section-h4-size:   var(--text-2xl);
+
+  /* Tracking – open; serifs need room, labels get extra air for elegance */
+  --section-h1-tracking:    var(--tracking-normal);
+  --section-h2-tracking:    var(--tracking-wide);
+  --section-h3-tracking:    var(--tracking-wider);
+  --section-h4-tracking:    var(--tracking-wider);
+  --section-body-tracking:  var(--tracking-wide);
+  --section-label-tracking: var(--tracking-widest);
+
+  /* Weights – lighter than Digital; elegance lives in the letterform, not weight */
+  --section-h1-weight:   var(--weight-bold);
+  --section-h2-weight:   var(--weight-semibold);
+  --section-h3-weight:   var(--weight-medium);
+  --section-h4-weight:   var(--weight-regular);
+  --section-body-weight: var(--weight-regular);
+
+  /* Leading – looser to let serif letterforms breathe */
+  --section-h1-leading:   var(--leading-snug);
+  --section-h2-leading:   var(--leading-normal);
+  --section-h3-leading:   var(--leading-relaxed);
+  --section-h4-leading:   var(--leading-relaxed);
+  --section-body-leading: var(--leading-loose);
+}
+
+
+/* -----------------------------------------------------------------------------
+   5. ELEMENT STYLES
+   These bind the custom properties set in sections 3–4 to actual HTML
+   elements. They only activate inside a section wrapper.
+   ----------------------------------------------------------------------------- */
+
+/* ── Headings ── */
+[data-section] h1,
+.section-digital h1,
+.section-celebrations h1 {
+  font-family:    var(--section-heading-font);
+  font-size:      var(--section-h1-size);
+  font-weight:    var(--section-h1-weight);
+  line-height:    var(--section-h1-leading);
+  letter-spacing: var(--section-h1-tracking);
+  color:          var(--color-text-primary);
+  margin:         0 0 0.5em;
+}
+
+[data-section] h2,
+.section-digital h2,
+.section-celebrations h2 {
+  font-family:    var(--section-heading-font);
+  font-size:      var(--section-h2-size);
+  font-weight:    var(--section-h2-weight);
+  line-height:    var(--section-h2-leading);
+  letter-spacing: var(--section-h2-tracking);
+  color:          var(--color-text-primary);
+  margin:         0 0 0.5em;
+}
+
+[data-section] h3,
+.section-digital h3,
+.section-celebrations h3 {
+  font-family:    var(--section-heading-font);
+  font-size:      var(--section-h3-size);
+  font-weight:    var(--section-h3-weight);
+  line-height:    var(--section-h3-leading);
+  letter-spacing: var(--section-h3-tracking);
+  color:          var(--color-text-primary);
+  margin:         0 0 0.5em;
+}
+
+[data-section] h4,
+.section-digital h4,
+.section-celebrations h4 {
+  font-family:    var(--section-heading-font);
+  font-size:      var(--section-h4-size);
+  font-weight:    var(--section-h4-weight);
+  line-height:    var(--section-h4-leading);
+  letter-spacing: var(--section-h4-tracking);
+  color:          var(--color-text-primary);
+  margin:         0 0 0.5em;
+}
+
+/* ── Body text ── */
+[data-section] p,
+.section-digital p,
+.section-celebrations p {
+  font-family:    var(--section-body-font);
+  font-size:      var(--text-base);
+  font-weight:    var(--section-body-weight);
+  line-height:    var(--section-body-leading);
+  letter-spacing: var(--section-body-tracking);
+  color:          var(--color-text-secondary);
+  margin:         0 0 1.25em;
+}
+
+/* Large intro / lead paragraph */
+[data-section] .text-lead,
+.section-digital .text-lead,
+.section-celebrations .text-lead {
+  font-family:    var(--section-body-font);
+  font-size:      var(--text-lg);
+  font-weight:    var(--weight-light);
+  line-height:    var(--leading-loose);
+  letter-spacing: var(--section-body-tracking);
+  color:          var(--color-text-secondary);
+}
+
+/* Small / caption text */
+[data-section] small,
+[data-section] .text-small,
+.section-digital small,
+.section-celebrations small {
+  font-family:    var(--section-body-font);
+  font-size:      var(--text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--leading-normal);
+  color:          var(--color-text-muted);
+}
+
+/* ── Section labels / eyebrows ──
+   e.g. "OUR SERVICES" above a heading */
+[data-section] .text-label,
+.section-digital .text-label,
+.section-celebrations .text-label {
+  font-family:    var(--section-body-font);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--section-label-tracking);
+  text-transform: uppercase;
+  color:          var(--color-text-accent);
+  display:        block;
+  margin-bottom:  0.75em;
+}
+
+/* ── Celebrations h1 italic accent (matches demo: em in magenta + soft glow) ── */
+[data-section="celebrations"] h1 em,
+.section-celebrations h1 em {
+  color:       var(--color-text-accent);
+  font-style:  italic;
+  text-shadow: 0 0 14px rgba(255, 20, 147, 0.14);
+}
+
+/* ── Gradient text utility (re-usable in both sections) ── */
+[data-section] .text-gradient,
+.section-digital .text-gradient,
+.section-celebrations .text-gradient {
+  background:              var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip:         text;
+}
+
+
+/* -----------------------------------------------------------------------------
+   6. SHARED STANDALONE UTILITIES
+   Can be used anywhere without a section wrapper.
+   ----------------------------------------------------------------------------- */
+
+/* Digital heading standalone */
+.type-digital-h1 { font-family: var(--font-digital-heading); font-size: var(--text-5xl); font-weight: var(--weight-extrabold); line-height: var(--leading-tight); letter-spacing: var(--tracking-tighter); }
+.type-digital-h2 { font-family: var(--font-digital-heading); font-size: var(--text-4xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+.type-digital-h3 { font-family: var(--font-digital-heading); font-size: var(--text-3xl); font-weight: var(--weight-semibold); line-height: var(--leading-snug); letter-spacing: var(--tracking-tight); }
+
+/* Celebrations heading standalone */
+.type-celebrations-h1 { font-family: var(--font-celebrations-heading); font-size: var(--text-5xl); font-weight: var(--weight-bold); line-height: var(--leading-snug); letter-spacing: var(--tracking-normal); }
+.type-celebrations-h2 { font-family: var(--font-celebrations-heading); font-size: var(--text-4xl); font-weight: var(--weight-semibold); line-height: var(--leading-normal); letter-spacing: var(--tracking-wide); }
+.type-celebrations-h3 { font-family: var(--font-celebrations-heading); font-size: var(--text-3xl); font-weight: var(--weight-medium); line-height: var(--leading-relaxed); letter-spacing: var(--tracking-wider); }
+
+
+/* -----------------------------------------------------------------------------
+   7. RESPONSIVE OVERRIDES
+   Mobile-first: base = mobile. These breakpoints nudge the scale up.
+   The clamp() values in section 2 handle smooth in-between scaling.
+   ----------------------------------------------------------------------------- */
+
+/* ── Tablet (≥ 640px) ── */
+@media (min-width: 640px) {
+  :root {
+    --text-base: 1.0625rem;  /* 17px – slightly more comfortable on larger screens */
+    --text-lg:   1.1875rem;  /* 19px */
+  }
+}
+
+/* ── Desktop (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  :root {
+    --text-base: 1.125rem;   /* 18px */
+    --text-lg:   1.25rem;    /* 20px */
+  }
+
+  /* Digital gets extra tightness at large sizes – proportionally correct */
+  [data-section="digital"] h1,
+  .section-digital h1 {
+    letter-spacing: -0.05em;
+  }
+
+  /* Celebrations H1 gains a touch of extra spacing at large display sizes */
+  [data-section="celebrations"] h1,
+  .section-celebrations h1 {
+    letter-spacing: 0.01em;
+  }
+}
+
+/* ── Wide desktop (≥ 1280px) ── */
+@media (min-width: 1280px) {
+  :root {
+    --text-base: 1.125rem;
+  }
+}

@@ -67,16 +67,16 @@ export function AetherLogo({
         strokeLinecap="round"
       />
 
-      {/* Heart cutout (negative space effect via white shape) */}
+      {/* Heart cutout — white to appear as negative space on light backgrounds */}
       <path
         d="M50 52 C50 52 42 45 42 39 C42 35 45 33 48 34 C49 34.5 50 36 50 36 C50 36 51 34.5 52 34 C55 33 58 35 58 39 C58 45 50 52 50 52Z"
-        fill="#0a0a0a"
+        fill="#ffffff"
       />
 
-      {/* Sparkles */}
-      <path d="M75 22 L76.5 19 L78 22 L81 23.5 L78 25 L76.5 28 L75 25 L72 23.5Z" fill="white" opacity="0.9" />
-      <path d="M22 25 L23 23 L24 25 L26 26 L24 27 L23 29 L22 27 L20 26Z" fill="white" opacity="0.6" />
-      <path d="M80 60 L81 58.5 L82 60 L83.5 61 L82 62 L81 63.5 L80 62 L78.5 61Z" fill="white" opacity="0.5" />
+      {/* Sparkles — purple so they show on light backgrounds */}
+      <path d="M75 22 L76.5 19 L78 22 L81 23.5 L78 25 L76.5 28 L75 25 L72 23.5Z" fill="#6a4c93" opacity="0.7" />
+      <path d="M22 25 L23 23 L24 25 L26 26 L24 27 L23 29 L22 27 L20 26Z" fill="#ff4081" opacity="0.6" />
+      <path d="M80 60 L81 58.5 L82 60 L83.5 61 L82 62 L81 63.5 L80 62 L78.5 61Z" fill="#6a4c93" opacity="0.5" />
     </svg>
   );
 
@@ -108,7 +108,7 @@ export function AetherLogo({
         {subtitle && (
           <span
             className="text-xs tracking-[0.2em] uppercase"
-            style={{ color: '#999999', fontFamily: "'Inter', sans-serif" }}
+            style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}
           >
             {subtitle}
           </span>

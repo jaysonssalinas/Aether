@@ -1,0 +1,54 @@
+<h2>3 Approaches to the Aether Architecture</h2>
+<p class="subtitle">All achieve 1 domain + local CRM. They differ in how much restructuring is involved.</p>
+
+<div class="options" style="margin-top: 24px;">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Minimal Merge <span style="color:#77cc77; font-size:12px; font-weight:400;">Recommended</span></h3>
+      <p>Delete <code>apps/digital</code> and <code>apps/celebrations</code> — they're redundant since <code>apps/aether</code> already has <code>/digital/*</code> and <code>/celebrations/*</code> routes fully built. Deploy only <code>apps/aether</code> to Netlify. Set up <code>apps/admin</code> on Ubuntu + Tailscale. Done in 1 session.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Pros</h4><ul><li>Fastest path to live</li><li>No content migration risk</li><li>Already works today</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Assumes apps/aether has all content needed</li><li>Need to verify nothing is missed</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Content Audit Merge</h3>
+      <p>Audit <code>apps/digital</code> and <code>apps/celebrations</code> for any unique pages or components not yet in <code>apps/aether</code>. Port those in, then delete the subdomain apps. More thorough — ensures nothing is left behind.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Pros</h4><ul><li>No risk of losing content</li><li>Clean final result</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Takes longer</li><li>May find duplicate work</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Full Restructure (Follow the MD Doc)</h3>
+      <p>Rebuild to match the MD document exactly: <code>websites/</code>, <code>admin-dashboard/</code>, <code>api/</code>, <code>database/</code>. Replaces the current Next.js monorepo with the planned structure from scratch.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Pros</h4><ul><li>Matches your original vision doc</li><li>Clean slate</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Throws away working code</li><li>Weeks of rework</li><li>High risk, low reward</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top: 28px; padding: 16px; background: #0d1f1a; border: 1px solid #44884460; border-radius: 6px;">
+  <div style="color: #77cc77; font-weight: 600; margin-bottom: 8px;">Shared across all options — Ubuntu + Tailscale CRM Setup</div>
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px;">
+    <div style="background:#1a2a20; border:1px solid #44884430; border-radius:4px; padding:8px 12px; color:#99ccaa;">1. Install Tailscale on Ubuntu server</div>
+    <div style="background:#1a2a20; border:1px solid #44884430; border-radius:4px; padding:8px 12px; color:#99ccaa;">2. Install Tailscale on your & Remlyn's devices</div>
+    <div style="background:#1a2a20; border:1px solid #44884430; border-radius:4px; padding:8px 12px; color:#99ccaa;">3. Run apps/admin on Ubuntu (port 3003)</div>
+    <div style="background:#1a2a20; border:1px solid #44884430; border-radius:4px; padding:8px 12px; color:#99ccaa;">4. Access via Tailscale IP from anywhere</div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top: 16px; font-size: 12px;">Click an approach above to select it, then let me know in the terminal.</p>
