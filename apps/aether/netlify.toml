@@ -1,4 +1,4 @@
-[build]
+﻿[build]
   command = "cd ../.. && pnpm --filter @aether/web build"
   publish = "apps/aether/.next"
 
