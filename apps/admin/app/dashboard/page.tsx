@@ -29,7 +29,12 @@ export default async function DashboardPage() {
   const session = await getSession();
   if (!session) redirect('/login');
 
-  const data = await getDashboardData();
+  let data: DashboardData;
+  try {
+    data = await getDashboardData();
+  } catch {
+    data = { mrr: 0, totalCustomers: 0, renewalDue: 0, revenueByProduct: [], renewalAlerts: [] };
+  }
   const { mrr, totalCustomers, renewalDue, revenueByProduct, renewalAlerts } = data;
 
   return (

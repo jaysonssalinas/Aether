@@ -41,6 +41,7 @@ export default function SubscriptionsPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [saving, setSaving] = useState(false);
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'paused' | 'cancelled'>('all');
@@ -55,6 +56,7 @@ export default function SubscriptionsPage() {
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const [subsRes, custsRes, prodsRes] = await Promise.all([
         fetch('/api/subscriptions'),
@@ -69,6 +71,8 @@ export default function SubscriptionsPage() {
       setSubscriptions(subs);
       setCustomers(custs);
       setProducts(prods);
+    } catch {
+      setError('Failed to load data. Please refresh.');
     } finally {
       setLoading(false);
     }
@@ -94,7 +98,7 @@ export default function SubscriptionsPage() {
         body: JSON.stringify({
           customer_id: parseInt(newSub.customer_id),
           product_id: newSub.product_id,
-          monthly_amount: parseInt(newSub.monthly_amount) || 0,
+          monthly_amount: Number(newSub.monthly_amount) || 0,
           start_date: newSub.start_date,
           renewal_date: newSub.renewal_date,
           notes: newSub.notes || null,
@@ -104,19 +108,27 @@ export default function SubscriptionsPage() {
         setShowAdd(false);
         setNewSub({ customer_id: '', product_id: '', monthly_amount: '', start_date: new Date().toISOString().slice(0, 10), renewal_date: '', notes: '' });
         await fetchAll();
+      } else {
+        alert('Failed to save subscription. Please try again.');
       }
+    } catch {
+      alert('Failed to save subscription. Please try again.');
     } finally {
       setSaving(false);
     }
   }
 
   async function updateStatus(id: number, sub: Subscription, status: Subscription['status']) {
-    await fetch(`/api/subscriptions/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...sub, status }),
-    });
-    await fetchAll();
+    try {
+      await fetch(`/api/subscriptions/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ monthly_amount: sub.monthly_amount, renewal_date: sub.renewal_date, status, notes: sub.notes }),
+      });
+      await fetchAll();
+    } catch {
+      alert('Failed to update status. Please try again.');
+    }
   }
 
   const inp: React.CSSProperties = {
@@ -151,6 +163,12 @@ export default function SubscriptionsPage() {
               </button>
             ))}
           </div>
+
+          {error && (
+            <div className="p-4 rounded-lg text-sm" style={{ background: 'rgba(255,64,129,0.1)', border: '1px solid rgba(255,64,129,0.2)', color: '#ff4081' }}>
+              {error}
+            </div>
+          )}
 
           {showAdd && (
             <div className="p-6 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid rgba(255,20,147,0.2)' }}>

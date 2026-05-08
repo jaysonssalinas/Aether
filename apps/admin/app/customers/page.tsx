@@ -18,6 +18,7 @@ interface Customer {
 export default function CustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<Customer | null>(null);
   const [showAdd, setShowAdd] = useState(false);
@@ -28,9 +29,16 @@ export default function CustomersPage() {
 
   const fetchCustomers = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch('/api/customers');
-      if (res.ok) setCustomers(await res.json());
+      if (res.ok) {
+        setCustomers(await res.json());
+      } else {
+        setError('Failed to load customers.');
+      }
+    } catch {
+      setError('Failed to load customers.');
     } finally {
       setLoading(false);
     }
@@ -56,7 +64,11 @@ export default function CustomersPage() {
         setNewCustomer({ name: '', email: '', phone: '', address: '', notes: '' });
         setShowAdd(false);
         await fetchCustomers();
+      } else {
+        alert('Failed to save customer. Please try again.');
       }
+    } catch {
+      alert('Failed to save customer. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -64,9 +76,13 @@ export default function CustomersPage() {
 
   async function deleteCustomer(id: number) {
     if (!confirm('Delete this customer and all their subscriptions?')) return;
-    await fetch(`/api/customers/${id}`, { method: 'DELETE' });
-    setSelected(null);
-    await fetchCustomers();
+    try {
+      await fetch(`/api/customers/${id}`, { method: 'DELETE' });
+      setSelected(null);
+      await fetchCustomers();
+    } catch {
+      alert('Failed to delete customer. Please try again.');
+    }
   }
 
   const inp: React.CSSProperties = {
@@ -96,6 +112,12 @@ export default function CustomersPage() {
               + Add Customer
             </button>
           </div>
+
+          {error && (
+            <div className="p-4 rounded-lg text-sm" style={{ background: 'rgba(255,64,129,0.1)', border: '1px solid rgba(255,64,129,0.2)', color: '#ff4081' }}>
+              {error}
+            </div>
+          )}
 
           <input
             type="text"
