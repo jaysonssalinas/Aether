@@ -11,28 +11,33 @@ export async function GET(
 
   const { id } = await params;
 
-  const customerResult = await pool.query(
-    'SELECT * FROM customers WHERE id = $1',
-    [id]
-  );
+  try {
+    const customerResult = await pool.query(
+      'SELECT * FROM customers WHERE id = $1',
+      [id]
+    );
 
-  if (customerResult.rows.length === 0) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    if (customerResult.rows.length === 0) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    const subscriptionsResult = await pool.query(
+      `SELECT s.*, p.name AS product_name, p.division
+       FROM subscriptions s
+       JOIN products p ON p.id = s.product_id
+       WHERE s.customer_id = $1
+       ORDER BY s.created_at DESC`,
+      [id]
+    );
+
+    return NextResponse.json({
+      ...customerResult.rows[0],
+      subscriptions: subscriptionsResult.rows,
+    });
+  } catch (err) {
+    console.error('[customers/[id] GET]', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-
-  const subscriptionsResult = await pool.query(
-    `SELECT s.*, p.name AS product_name, p.division
-     FROM subscriptions s
-     JOIN products p ON p.id = s.product_id
-     WHERE s.customer_id = $1
-     ORDER BY s.created_at DESC`,
-    [id]
-  );
-
-  return NextResponse.json({
-    ...customerResult.rows[0],
-    subscriptions: subscriptionsResult.rows,
-  });
 }
 
 export async function PUT(
@@ -45,19 +50,24 @@ export async function PUT(
   const { id } = await params;
   const { name, email, phone, address, notes } = await req.json();
 
-  const result = await pool.query(
-    `UPDATE customers
-     SET name = $1, email = $2, phone = $3, address = $4, notes = $5
-     WHERE id = $6
-     RETURNING *`,
-    [name, email ?? null, phone ?? null, address ?? null, notes ?? null, id]
-  );
+  try {
+    const result = await pool.query(
+      `UPDATE customers
+       SET name = $1, email = $2, phone = $3, address = $4, notes = $5
+       WHERE id = $6
+       RETURNING *`,
+      [name, email ?? null, phone ?? null, address ?? null, notes ?? null, id]
+    );
 
-  if (result.rows.length === 0) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
+  } catch (err) {
+    console.error('[customers/[id] PUT]', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-
-  return NextResponse.json(result.rows[0]);
 }
 
 export async function DELETE(
@@ -69,7 +79,16 @@ export async function DELETE(
 
   const { id } = await params;
 
-  await pool.query('DELETE FROM customers WHERE id = $1', [id]);
+  try {
+    const result = await pool.query('DELETE FROM customers WHERE id = $1', [id]);
 
-  return NextResponse.json({ success: true });
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('[customers/[id] DELETE]', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
 }
