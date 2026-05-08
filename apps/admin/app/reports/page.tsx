@@ -50,7 +50,7 @@ export default async function ReportsPage() {
                       background: m.mrr > 0 ? 'var(--color-accent)' : 'var(--color-subtle)',
                     }}
                   />
-                  <p className="text-xs" style={{ color: '#444444', fontSize: '9px' }}>{m.month}</p>
+                  <p className="text-xs" style={{ color: 'var(--color-subtle)', fontSize: '9px' }}>{m.month}</p>
                 </div>
               ))}
             </div>
