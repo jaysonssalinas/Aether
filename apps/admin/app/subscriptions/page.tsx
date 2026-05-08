@@ -189,13 +189,13 @@ export default function SubscriptionsPage() {
           </div>
 
           {error && (
-            <div className="p-4 rounded-lg text-sm" style={{ background: 'rgba(255,64,129,0.1)', border: '1px solid rgba(255,64,129,0.2)', color: '#ff4081' }}>
+            <div className="p-4 rounded-lg text-sm" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: 'var(--color-danger)' }}>
               {error}
             </div>
           )}
 
           {showAdd && (
-            <div className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid rgba(255,20,147,0.2)', boxShadow: 'var(--card-shadow)' }}>
+            <div className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', boxShadow: 'var(--card-shadow)' }}>
               <p className="text-sm font-medium mb-4" style={{ color: 'var(--color-text)' }}>Add Subscription</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
