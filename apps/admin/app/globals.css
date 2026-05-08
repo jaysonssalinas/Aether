@@ -1,29 +1,60 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
-@theme inline {
-  /* Brand colors */
-  --color-brand-pink: #ff1493;
-  --color-brand-magenta: #ff4081;
-  --color-brand-purple: #6a4c93;
-  --color-brand-dark: #0a0a0a;
-  --color-brand-card: #111111;
-  --color-brand-border: #1e1e1e;
-  --color-brand-light: #f5f5f0;
-  --color-brand-muted: #999999;
-  --color-brand-gold: #b8860b;
-  --color-brand-cyan: #00bcd4;
+/* ============================================================
+   THEME TOKENS — three [data-theme] blocks
+   ============================================================ */
 
-  /* Fonts */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
-  --font-sans: var(--font-body);
+[data-theme="light"] {
+  --color-bg:             #f8fafc;
+  --color-surface:        #ffffff;
+  --color-border:         #e2e8f0;
+  --color-text:           #0f172a;
+  --color-muted:          #64748b;
+  --color-subtle:         #94a3b8;
+  --color-accent:         #3b82f6;
+  --color-accent-hover:   #2563eb;
+  --color-success:        #16a34a;
+  --color-danger:         #ef4444;
+  --color-sidebar-bg:     #ffffff;
+  --color-sidebar-border: #e2e8f0;
+  --card-shadow:          0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-:root {
-  --gradient-brand: linear-gradient(135deg, #ff1493 0%, #ff4081 40%, #6a4c93 100%);
-  --gradient-text: linear-gradient(135deg, #ff1493, #6a4c93);
+[data-theme="dark"] {
+  --color-bg:             #0f172a;
+  --color-surface:        #1e293b;
+  --color-border:         #334155;
+  --color-text:           #f1f5f9;
+  --color-muted:          #94a3b8;
+  --color-subtle:         #64748b;
+  --color-accent:         #3b82f6;
+  --color-accent-hover:   #60a5fa;
+  --color-success:        #22c55e;
+  --color-danger:         #f87171;
+  --color-sidebar-bg:     #0f172a;
+  --color-sidebar-border: #1e293b;
+  --card-shadow:          none;
 }
+
+[data-theme="dark-indigo"] {
+  --color-bg:             #1c1c1e;
+  --color-surface:        #2c2c2e;
+  --color-border:         #3a3a3c;
+  --color-text:           #ffffff;
+  --color-muted:          #8e8e93;
+  --color-subtle:         #636366;
+  --color-accent:         #6366f1;
+  --color-accent-hover:   #818cf8;
+  --color-success:        #30d158;
+  --color-danger:         #ff453a;
+  --color-sidebar-bg:     #1c1c1e;
+  --color-sidebar-border: #3a3a3c;
+  --card-shadow:          none;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
 
 * {
   box-sizing: border-box;
@@ -34,80 +65,35 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: #f5f5f0;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.font-display {
-  font-family: 'Playfair Display', Georgia, serif;
-}
+/* ============================================================
+   ANIMATIONS (kept for future use)
+   ============================================================ */
 
-.gradient-text {
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-bg {
-  background: var(--gradient-brand);
-}
-
-.gradient-border {
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  position: relative;
-}
-
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--gradient-brand);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Subtle particle animation for hero sections */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
-}
+.animate-float      { animation: float 6s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-fade-in    { animation: fadeIn 1s ease-out forwards; }
 
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
