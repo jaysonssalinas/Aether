@@ -32,66 +32,123 @@ export default function LoginPage() {
     }
   }
 
-  const inp: React.CSSProperties = {
-    background: '#111111', border: '1px solid #1e1e1e', borderRadius: '4px',
-    color: '#f5f5f0', padding: '12px 16px', width: '100%', fontSize: '14px',
-    fontFamily: "'Inter', sans-serif", outline: 'none',
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: '#070707' }}>
+    <div
+      className="min-h-screen flex items-center justify-center px-4"
+      style={{ background: 'var(--color-bg)' }}
+    >
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-medium tracking-[0.15em]"
-            style={{ fontFamily: "'Playfair Display',Georgia,serif", background: 'linear-gradient(135deg,#ff1493,#6a4c93)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1
+            className="text-2xl font-semibold tracking-widest"
+            style={{ color: 'var(--color-text)' }}
+          >
             AETHER
           </h1>
-          <p className="text-xs tracking-[0.15em] mt-2" style={{ color: '#444444' }}>ADMIN PANEL</p>
+          <p className="text-xs tracking-widest mt-1.5 uppercase" style={{ color: 'var(--color-subtle)' }}>
+            Admin Panel
+          </p>
         </div>
 
-        <div className="p-8 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}>
-          <h2 className="text-lg font-medium mb-6" style={{ color: '#f5f5f0' }}>Sign in</h2>
+        {/* Card */}
+        <div
+          className="p-8 rounded-xl"
+          style={{
+            background: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            boxShadow: 'var(--card-shadow)',
+          }}
+        >
+          <h2 className="text-base font-semibold mb-6" style={{ color: 'var(--color-text)' }}>
+            Sign in to your account
+          </h2>
 
           <form onSubmit={handleLogin} className="flex flex-col gap-5">
             <div>
-              <label className="block text-xs tracking-[0.1em] uppercase mb-2" style={{ color: '#666666' }}>Email</label>
+              <label
+                className="block text-xs font-medium uppercase tracking-wider mb-1.5"
+                style={{ color: 'var(--color-muted)' }}
+              >
+                Email
+              </label>
               <input
-                type="email" required autoComplete="email"
-                value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                style={inp}
-                onFocus={(e) => (e.target.style.borderColor = 'rgba(255,20,147,0.4)')}
-                onBlur={(e) => (e.target.style.borderColor = '#1e1e1e')}
+                type="email"
+                required
+                autoComplete="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '6px',
+                  color: 'var(--color-text)',
+                  padding: '9px 12px',
+                  width: '100%',
+                  fontSize: '14px',
+                  outline: 'none',
+                }}
+                onFocus={(e) => (e.target.style.borderColor = 'var(--color-accent)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--color-border)')}
               />
             </div>
+
             <div>
-              <label className="block text-xs tracking-[0.1em] uppercase mb-2" style={{ color: '#666666' }}>Password</label>
+              <label
+                className="block text-xs font-medium uppercase tracking-wider mb-1.5"
+                style={{ color: 'var(--color-muted)' }}
+              >
+                Password
+              </label>
               <input
-                type="password" required autoComplete="current-password"
-                value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
-                style={inp}
-                onFocus={(e) => (e.target.style.borderColor = 'rgba(255,20,147,0.4)')}
-                onBlur={(e) => (e.target.style.borderColor = '#1e1e1e')}
+                type="password"
+                required
+                autoComplete="current-password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '6px',
+                  color: 'var(--color-text)',
+                  padding: '9px 12px',
+                  width: '100%',
+                  fontSize: '14px',
+                  outline: 'none',
+                }}
+                onFocus={(e) => (e.target.style.borderColor = 'var(--color-accent)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--color-border)')}
               />
             </div>
 
             {error && (
-              <p className="text-xs text-center" style={{ color: '#ff4081' }}>{error}</p>
+              <p className="text-xs text-center rounded-md py-2" style={{ color: 'var(--color-danger)', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                {error}
+              </p>
             )}
 
-            <button type="submit" disabled={status === 'loading'}
+            <button
+              type="submit"
+              disabled={status === 'loading'}
               style={{
-                background: 'linear-gradient(135deg,#ff1493,#6a4c93)', color: '#fff', border: 'none',
-                borderRadius: '4px', padding: '14px 24px', fontSize: '14px',
-                fontFamily: "'Inter',sans-serif", cursor: status === 'loading' ? 'not-allowed' : 'pointer',
-                opacity: status === 'loading' ? 0.7 : 1, marginTop: '4px',
-              }}>
-              {status === 'loading' ? 'Signing in...' : 'Sign In →'}
+                background: 'var(--color-accent)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '10px 24px',
+                fontSize: '14px',
+                fontWeight: 500,
+                cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+                opacity: status === 'loading' ? 0.7 : 1,
+                marginTop: '4px',
+              }}
+            >
+              {status === 'loading' ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs mt-6" style={{ color: '#333333' }}>
+        <p className="text-center text-xs mt-6" style={{ color: 'var(--color-subtle)' }}>
           Aether Internal · Not publicly accessible
         </p>
       </div>
