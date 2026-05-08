@@ -29,16 +29,16 @@ export default async function ReportsPage() {
   return (
     <div className="flex min-h-screen">
       <AdminSidebar />
-      <main className="flex-1 ml-56 p-8" style={{ background: '#070707' }}>
+      <main className="flex-1 ml-56 p-8" style={{ background: 'var(--color-bg)' }}>
         <div className="max-w-5xl mx-auto flex flex-col gap-8">
           <div>
-            <h1 className="text-2xl font-medium" style={{ fontFamily: "'Playfair Display',Georgia,serif", color: '#f5f5f0' }}>Reports</h1>
-            <p className="text-sm mt-1" style={{ color: '#666666' }}>Business performance overview</p>
+            <h1 className="text-xl font-semibold" style={{ color: 'var(--color-text)' }}>Reports</h1>
+            <p className="text-sm mt-1" style={{ color: 'var(--color-muted)' }}>Business performance overview</p>
           </div>
 
           {/* MRR trend */}
-          <div className="p-6 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}>
-            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: '#666666' }}>MRR Trend — Last 12 Months</p>
+          <div className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: 'var(--color-muted)' }}>MRR Trend — Last 12 Months</p>
             <div className="flex items-end gap-2 h-40">
               {mrrHistory.map((m) => (
                 <div key={m.month} className="flex-1 flex flex-col items-center gap-2">
@@ -47,7 +47,7 @@ export default async function ReportsPage() {
                     style={{
                       height: `${(m.mrr / maxMrr) * 120}px`,
                       minHeight: m.mrr > 0 ? '4px' : '2px',
-                      background: m.mrr > 0 ? 'linear-gradient(180deg,#ff1493,#6a4c93)' : '#1a1a1a',
+                      background: m.mrr > 0 ? 'var(--color-accent)' : 'var(--color-subtle)',
                     }}
                   />
                   <p className="text-xs" style={{ color: '#444444', fontSize: '9px' }}>{m.month}</p>
@@ -55,48 +55,48 @@ export default async function ReportsPage() {
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-xs" style={{ color: '#666666' }}>Current MRR</p>
-              <p className="text-xl font-medium" style={{ fontFamily: "'Playfair Display',Georgia,serif", background: 'linear-gradient(135deg,#ff1493,#6a4c93)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Current MRR</p>
+              <p className="text-xl font-medium" style={{ color: 'var(--color-accent)' }}>
                 ₱{totalMrr.toLocaleString()}
               </p>
             </div>
           </div>
 
           {/* Product breakdown */}
-          <div className="p-6 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}>
-            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: '#666666' }}>Revenue by Product</p>
+          <div className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: 'var(--color-muted)' }}>Revenue by Product</p>
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ borderBottom: '1px solid #1e1e1e' }}>
+                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                   {['Product', 'Customers', 'MRR', '% of Total'].map((h) => (
-                    <th key={h} className="pb-3 text-left text-xs tracking-[0.1em] uppercase font-normal" style={{ color: '#444444' }}>{h}</th>
+                    <th key={h} className="pb-3 text-left text-xs tracking-[0.1em] uppercase font-normal" style={{ color: 'var(--color-subtle)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {productBreakdown.map((p) => (
-                  <tr key={p.product} style={{ borderBottom: '1px solid #111111' }}>
-                    <td className="py-3 font-medium" style={{ color: '#f5f5f0' }}>{p.product}</td>
-                    <td className="py-3" style={{ color: '#888888' }}>{p.customers}</td>
-                    <td className="py-3" style={{ color: '#f5f5f0' }}>{p.mrr > 0 ? `₱${p.mrr.toLocaleString()}` : '—'}</td>
-                    <td className="py-3" style={{ color: '#666666' }}>
+                  <tr key={p.product} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                    <td className="py-3 font-medium" style={{ color: 'var(--color-text)' }}>{p.product}</td>
+                    <td className="py-3" style={{ color: 'var(--color-muted)' }}>{p.customers}</td>
+                    <td className="py-3" style={{ color: 'var(--color-text)' }}>{p.mrr > 0 ? `₱${p.mrr.toLocaleString()}` : '—'}</td>
+                    <td className="py-3" style={{ color: 'var(--color-muted)' }}>
                       {totalMrr > 0 && p.mrr > 0 ? `${Math.round((p.mrr / totalMrr) * 100)}%` : '—'}
                     </td>
                   </tr>
                 ))}
                 <tr>
-                  <td className="pt-4 font-medium text-xs uppercase tracking-wide" style={{ color: '#666666' }}>Total</td>
-                  <td className="pt-4 font-medium" style={{ color: '#f5f5f0' }}>{totalCustomers}</td>
-                  <td className="pt-4 font-medium" style={{ color: '#f5f5f0' }}>₱{totalMrr.toLocaleString()}</td>
-                  <td className="pt-4" style={{ color: '#666666' }}>100%</td>
+                  <td className="pt-4 font-medium text-xs uppercase tracking-wide" style={{ color: 'var(--color-muted)' }}>Total</td>
+                  <td className="pt-4 font-medium" style={{ color: 'var(--color-text)' }}>{totalCustomers}</td>
+                  <td className="pt-4 font-medium" style={{ color: 'var(--color-text)' }}>₱{totalMrr.toLocaleString()}</td>
+                  <td className="pt-4" style={{ color: 'var(--color-muted)' }}>100%</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           {/* Milestones */}
-          <div className="p-6 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}>
-            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: '#666666' }}>Road to ₱30,000 MRR</p>
+          <div className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <p className="text-xs tracking-[0.15em] uppercase mb-6" style={{ color: 'var(--color-muted)' }}>Road to ₱30,000 MRR</p>
             <div className="flex flex-col gap-4">
               {[
                 { label: 'Phase 1 Launch', target: 0, done: true },
@@ -105,16 +105,16 @@ export default async function ReportsPage() {
                 { label: '₱30,000 MRR (Month 12)', target: 30000, done: totalMrr >= 30000 },
               ].map((m) => (
                 <div key={m.label} className="flex items-center gap-4">
-                  <span style={{ color: m.done ? '#ff1493' : '#333333', fontSize: '16px' }}>{m.done ? '✓' : '○'}</span>
+                  <span style={{ color: m.done ? 'var(--color-accent)' : 'var(--color-subtle)', fontSize: '16px' }}>{m.done ? '✓' : '○'}</span>
                   <div className="flex-1">
-                    <p className="text-sm" style={{ color: m.done ? '#f5f5f0' : '#666666' }}>{m.label}</p>
+                    <p className="text-sm" style={{ color: m.done ? 'var(--color-text)' : 'var(--color-muted)' }}>{m.label}</p>
                   </div>
                   {m.target > 0 && (
-                    <div className="w-32 h-1.5 rounded-full" style={{ background: '#1a1a1a' }}>
-                      <div className="h-1.5 rounded-full" style={{ width: `${Math.min((totalMrr / m.target) * 100, 100)}%`, background: 'linear-gradient(90deg,#ff1493,#6a4c93)' }} />
+                    <div className="w-32 h-1.5 rounded-full" style={{ background: 'var(--color-subtle)' }}>
+                      <div className="h-1.5 rounded-full" style={{ width: `${Math.min((totalMrr / m.target) * 100, 100)}%`, background: 'var(--color-accent)' }} />
                     </div>
                   )}
-                  {m.target > 0 && <p className="text-xs w-16 text-right" style={{ color: '#666666' }}>{Math.min(Math.round((totalMrr / m.target) * 100), 100)}%</p>}
+                  {m.target > 0 && <p className="text-xs w-16 text-right" style={{ color: 'var(--color-muted)' }}>{Math.min(Math.round((totalMrr / m.target) * 100), 100)}%</p>}
                 </div>
               ))}
             </div>
@@ -127,10 +127,10 @@ export default async function ReportsPage() {
               { label: 'Churn This Month', value: '0', sub: 'No cancellations' },
               { label: 'Runway to ₱15k', value: `₱${(15000 - totalMrr).toLocaleString()}`, sub: 'Still needed' },
             ].map((s) => (
-              <div key={s.label} className="p-6 rounded-lg" style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}>
-                <p className="text-xs tracking-[0.1em] uppercase mb-2" style={{ color: '#444444' }}>{s.label}</p>
-                <p className="text-2xl font-medium" style={{ fontFamily: "'Playfair Display',Georgia,serif", color: '#f5f5f0' }}>{s.value}</p>
-                <p className="text-xs mt-1" style={{ color: '#444444' }}>{s.sub}</p>
+              <div key={s.label} className="p-6 rounded-lg" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+                <p className="text-xs tracking-[0.1em] uppercase mb-2" style={{ color: 'var(--color-subtle)' }}>{s.label}</p>
+                <p className="text-2xl font-medium" style={{ color: 'var(--color-text)' }}>{s.value}</p>
+                <p className="text-xs mt-1" style={{ color: 'var(--color-subtle)' }}>{s.sub}</p>
               </div>
             ))}
           </div>
