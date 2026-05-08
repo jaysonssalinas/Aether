@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS admin_users (
 -- Default admin accounts (password: aether2026)
 -- Generate new hashes with: node -e "const b=require('bcryptjs'); console.log(b.hashSync('yourpassword',10))"
 INSERT INTO admin_users (email, name, password_hash) VALUES
-  ('jayson@aether.com.ph', 'Jayson Salinas', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhjW'),
-  ('remlyn@aether.com.ph', 'Remlyn Salinas', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhjW')
+  ('jayson@aether.com.ph', 'Jayson Salinas', '$2a$10$Q3jzSMkdtRmgd4NyLbo9Eu.eVefuWH3frKvCDnx3cg.IaOD7dOsTO'),
+  ('remlyn@aether.com.ph', 'Remlyn Salinas', '$2a$10$Q3jzSMkdtRmgd4NyLbo9Eu.eVefuWH3frKvCDnx3cg.IaOD7dOsTO')
 ON CONFLICT (email) DO NOTHING;
 
 
