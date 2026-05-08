@@ -199,7 +199,7 @@ export default function CustomersPage() {
                       <td className="py-3">
                         <span className="text-xs px-2 py-1 rounded-full"
                           style={c.active_subscriptions > 0
-                            ? { background: 'rgba(0,188,212,0.1)', color: '#00bcd4', border: '1px solid rgba(0,188,212,0.2)' }
+                            ? { background: 'rgba(22,163,74,0.1)', color: 'var(--color-success)', border: '1px solid rgba(22,163,74,0.2)' }
                             : { background: 'var(--color-surface)', color: 'var(--color-subtle)', border: '1px solid var(--color-border)' }}>
                           {c.active_subscriptions} active
                         </span>
